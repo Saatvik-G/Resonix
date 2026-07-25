@@ -41,14 +41,16 @@ export default function RecommendationCard({ rec, index = 0, onFeedback }: Recom
             {rec.imageUrl && !imgError ? (
               <Image
                 src={rec.imageUrl}
-                alt={rec.title}
+                alt={`Cover artwork for ${rec.title} by ${rec.artist}`}
                 fill
+                loading={index < 4 ? "eager" : "lazy"}
+                sizes="(max-width: 80px) 100vw, 80px"
                 className="object-cover group-hover:scale-105 transition-transform duration-500"
                 onError={() => setImgError(true)}
               />
             ) : (
-              <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-zinc-800 to-zinc-950 p-2 text-center">
-                <Disc size={28} className="text-amber-400/80 group-hover:animate-vinyl" />
+              <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-zinc-800 to-zinc-950 p-2 text-center" aria-label={`Cover sleeve for ${rec.title} by ${rec.artist}`}>
+                <Disc size={28} className="text-amber-400/80 group-hover:animate-vinyl" aria-hidden="true" />
                 <span className="text-[9px] text-zinc-400 font-medium truncate max-w-full mt-1">
                   {rec.artist}
                 </span>
@@ -116,11 +118,11 @@ export default function RecommendationCard({ rec, index = 0, onFeedback }: Recom
           </div>
         </div>
 
-        {/* Curator Note / Why this matches */}
+        {/* Curator Note / Why this matches - animated display or hover emphasis */}
         {rec.whyThisMatches && (
-          <div className="px-4 py-2.5 mx-3 mb-3 rounded-xl bg-white/[0.03] border border-white/5 flex items-start gap-2">
+          <div className="px-4 py-2.5 mx-3 mb-3 rounded-xl bg-white/[0.03] border border-white/5 flex items-start gap-2 group-hover:bg-amber-500/[0.04] group-hover:border-amber-500/10 transition-all duration-300">
             <Sparkles size={13} className="text-amber-400 flex-shrink-0 mt-0.5" />
-            <p className="text-xs text-zinc-300 leading-relaxed font-normal">
+            <p className="text-xs text-zinc-300 leading-relaxed font-normal group-hover:text-white transition-colors">
               {rec.whyThisMatches}
             </p>
           </div>

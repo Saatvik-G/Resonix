@@ -168,9 +168,26 @@ function SearchResults() {
       )}
 
       {isLoading ? (
-        <div className="flex flex-col items-center justify-center py-28 gap-4">
-          <Loader2 size={36} className="text-amber-400 animate-spin" />
-          <p className="text-zinc-400 text-sm font-medium">Searching 100M+ global catalog & AI vibes for &ldquo;{q}&rdquo;…</p>
+        <div className="space-y-6">
+          <div className="flex items-center gap-2 text-zinc-400 text-xs font-semibold animate-pulse">
+            <Loader2 size={14} className="animate-spin text-amber-400" />
+            <span>Scanning 100M+ global catalog & AI models...</span>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+            {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
+              <div key={n} className="glass rounded-2xl p-4 border border-white/5 bg-[#121118]/40 h-44 flex flex-col justify-between animate-pulse">
+                <div className="flex gap-3">
+                  <div className="w-20 h-20 rounded-xl bg-white/5 flex-shrink-0" />
+                  <div className="flex-1 space-y-2.5 pt-1">
+                    <div className="h-4 bg-white/10 rounded w-3/4" />
+                    <div className="h-3 bg-white/5 rounded w-1/2" />
+                    <div className="h-3 bg-white/5 rounded w-2/3" />
+                  </div>
+                </div>
+                <div className="h-10 bg-white/[0.02] rounded-xl w-full" />
+              </div>
+            ))}
+          </div>
         </div>
       ) : filteredResults.length > 0 ? (
         <div className="space-y-8">
@@ -185,7 +202,7 @@ function SearchResults() {
               ))}
             </AnimatePresence>
           </motion.div>
-
+ 
           {/* Load More Songs button */}
           <div className="flex flex-col items-center justify-center pt-6 pb-4">
             <button
@@ -200,14 +217,37 @@ function SearchResults() {
           </div>
         </div>
       ) : q && !isLoading ? (
-        <div className="text-center py-28 space-y-4">
-          <p className="text-lg text-zinc-400">No songs found for &ldquo;{q}&rdquo; under this filter.</p>
-          <button
-            onClick={() => setActiveFilter("all")}
-            className="text-xs text-amber-400 underline font-semibold"
-          >
-            Clear filter and show all matches
-          </button>
+        <div className="text-center py-24 px-4 glass border border-white/5 rounded-3xl max-w-xl mx-auto space-y-5 bg-[#121118]/60">
+          <div className="w-16 h-16 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mx-auto text-2xl">
+            🔍
+          </div>
+          <div className="space-y-2">
+            <h3 className="font-outfit text-xl font-bold text-white">No musical matches found</h3>
+            <p className="text-sm text-zinc-400 max-w-md mx-auto leading-relaxed">
+              We couldn't find matches for &ldquo;{q}&rdquo;. Try widening your query using different keywords or exploring genre tags.
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row gap-2 justify-center pt-2">
+            <button
+              onClick={() => {
+                setQuery("soulful Hindi acoustic songs");
+                const searchInput = document.querySelector('input[type="text"]') as HTMLInputElement;
+                if (searchInput) {
+                  searchInput.value = "soulful Hindi acoustic songs";
+                  searchInput.focus();
+                }
+              }}
+              className="text-xs px-4 py-2 rounded-xl glass border border-white/10 text-zinc-300 hover:text-white hover:border-amber-500/30 transition-all font-medium"
+            >
+              Try: "soulful Hindi acoustic"
+            </button>
+            <button
+              onClick={() => setActiveFilter("all")}
+              className="text-xs px-4 py-2 rounded-xl gradient-gold text-zinc-950 font-bold hover:scale-105 transition-all"
+            >
+              Clear Active Filters
+            </button>
+          </div>
         </div>
       ) : null}
     </div>

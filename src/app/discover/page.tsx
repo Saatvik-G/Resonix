@@ -39,8 +39,17 @@ const ACTIVITIES = [
   { label: "Partying", emoji: "🎉" }, { label: "Cleaning", emoji: "🧹" },
 ];
 
-const TABS = ["Mood", "Color", "Weather", "Personality", "Activity"] as const;
+const TABS = ["Mood", "Color", "Weather", "Personality", "Activity", "Creative"] as const;
 type Tab = typeof TABS[number];
+
+const CREATIVE_SUGGESTIONS = [
+  { label: "Tokyo Night", category: "Location" },
+  { label: "Interstellar Soundtrack", category: "Movie" },
+  { label: "Haruki Murakami Book Vibe", category: "Book" },
+  { label: "Sufi Sunset in Lahore", category: "Location" },
+  { label: "Cyberpunk 2077 Night City", category: "Game / TV" },
+  { label: "Amélie Paris Cafe", category: "Movie & Location" }
+];
 
 export default function DiscoverPage() {
   const [tab, setTab] = useState<Tab>("Mood");
@@ -48,6 +57,7 @@ export default function DiscoverPage() {
   const [interpretation, setInterpretation] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [selected, setSelected] = useState("");
+  const [customPrompt, setCustomPrompt] = useState("");
 
   const fetchRecs = async (mode: string, value: string) => {
     setSelected(value);
@@ -69,6 +79,12 @@ export default function DiscoverPage() {
     }
   };
 
+  const handleCreativeSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!customPrompt.trim()) return;
+    fetchRecs("creative", customPrompt);
+  };
+
   return (
     <div className="min-h-screen">
       <Navbar />
@@ -83,7 +99,7 @@ export default function DiscoverPage() {
           {TABS.map((t) => (
             <button
               key={t}
-              onClick={() => { setTab(t); setSelected(""); setResults([]); }}
+              onClick={() => { setTab(t); setSelected(""); setResults([]); setCustomPrompt(""); }}
               className={`flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all ${
                 tab === t
                   ? "gradient-primary text-white"
@@ -158,6 +174,52 @@ export default function DiscoverPage() {
                   <span className="text-xs text-white/70">{a.label}</span>
                 </button>
               ))}
+            </div>
+          )}
+
+          {tab === "Creative" && (
+            <div className="max-w-2xl space-y-6">
+              <form onSubmit={handleCreativeSubmit} className="flex gap-2">
+                <input
+                  type="text"
+                  required
+                  placeholder="Type a location, movie, book, or abstract vibe (e.g. Tokyo Night)..."
+                  value={customPrompt}
+                  onChange={(e) => setCustomPrompt(e.target.value)}
+                  className="flex-1 bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500/50"
+                />
+                <button
+                  type="submit"
+                  className="inline-flex items-center justify-center gap-1.5 gradient-primary px-5 py-2.5 rounded-xl text-sm font-semibold text-white hover:opacity-90 transition-all"
+                >
+                  Explore
+                </button>
+              </form>
+
+              <div>
+                <span className="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2.5">
+                  Or Try Popular Inspirations
+                </span>
+                <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                  {CREATIVE_SUGGESTIONS.map((s) => (
+                    <button
+                      key={s.label}
+                      onClick={() => {
+                        setCustomPrompt(s.label);
+                        fetchRecs("creative", s.label);
+                      }}
+                      className={`glass border rounded-xl p-3 text-left transition-all ${
+                        selected === s.label
+                          ? "border-amber-500/50 bg-amber-500/10"
+                          : "border-white/10 hover:border-white/20"
+                      }`}
+                    >
+                      <div className="font-outfit font-bold text-white text-sm truncate">{s.label}</div>
+                      <div className="text-[10px] text-white/40 mt-0.5">{s.category}</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
         </div>

@@ -461,3 +461,83 @@ Format recommendations conversationally.`;
     return `Here are some great recommendations matching "${lastMsg}":\n\n${recList}\n\nYou can click on any of them to listen on Spotify, YouTube Music, or Apple Music!`;
   }
 }
+
+export async function generateMusicDNA(historyText: string, preferencesText: string): Promise<any> {
+  try {
+    const prompt = `You are Resonix, an advanced music curator. Analyze this user's music background.
+History of listened/discovered tracks: "${historyText}"
+Stated preferences (favorite genres/moods): "${preferencesText}"
+
+Based on this, generate their personalized Music DNA Profile.
+Return a JSON object matching this structure:
+{
+  "archetype": "Name of their music archetype (e.g. Atmospheric Groove Explorer)",
+  "description": "A warm, personal 3-sentence description of their listening personality.",
+  "traits": ["3 short distinctive listening traits"],
+  "stats": {
+    "energy": 75,
+    "positivity": 65,
+    "discovery": 80,
+    "genreDiversity": 70,
+    "favoriteDecades": 60,
+    "favoriteMoods": 85
+  },
+  "topGenres": ["3-4 genres"],
+  "topDecades": ["2-3 decades, e.g. 1980s, 2010s"],
+  "topMoods": ["3-4 moods"],
+  "dnaTracks": [
+    {
+      "title": "Song Title",
+      "artist": "Artist Name",
+      "album": "Album Name",
+      "year": "Release Year",
+      "whyThisMatches": "Why this track embodies their DNA profile",
+      "type": "song"
+    }
+  ]
+}
+
+Make sure statistics are numeric between 0 and 100.
+Include exactly 4 diverse DNA tracks representing their profile, in different languages/eras where relevant. Return ONLY valid JSON.`;
+
+    const result = await model.generateContent(prompt);
+    return JSON.parse(cleanJSON(result.response.text()));
+  } catch (error) {
+    console.error("Gemini Music DNA generation failed:", error);
+    return {
+      archetype: "Eclectic Sound Wanderer",
+      description: "You have a vibrant, open-minded taste that spans across multiple languages, decades, and genres. You appreciate the emotional depth of Bollywood classics as much as the modern energy of indie pop and Punjabi fusion.",
+      traits: ["Vibe Explorer", "Genre-Bending Enthusiast", "Emotional Resonance Seeker"],
+      stats: {
+        energy: 75,
+        positivity: 70,
+        discovery: 85,
+        genreDiversity: 80,
+        favoriteDecades: 65,
+        favoriteMoods: 78
+      },
+      topGenres: ["Punjabi Pop", "Indie Rock", "Synth-pop", "Bollywood Classics"],
+      topDecades: ["1980s Retro", "2010s Indie", "2020s Modern Fusion"],
+      topMoods: ["Hopeful", "Dreamy", "Energetic"],
+      dnaTracks: [
+        {
+          title: "Pasoori",
+          artist: "Ali Sethi & Shae Gill",
+          album: "Coke Studio Season 14",
+          year: "2022",
+          type: "song",
+          whyThisMatches: "Embodies your love for modern fusion rhythms blended with traditional elements."
+        },
+        {
+          title: "Midnight City",
+          artist: "M83",
+          album: "Hurry Up, We're Dreaming",
+          year: "2011",
+          type: "song",
+          whyThisMatches: "Matches your high affinity for dreamy synth-pop and energetic nighttime atmospheres."
+        }
+      ]
+    };
+  }
+}
+

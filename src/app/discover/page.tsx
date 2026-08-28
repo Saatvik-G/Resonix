@@ -110,27 +110,27 @@ export default function DiscoverPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 pb-24 md:pb-8">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
           <div>
-            <h1 className="font-outfit text-3xl font-bold text-white">Discover Music</h1>
-            <p className="text-white/40 mt-1">Let AI guide you to the perfect sound based on your world right now</p>
+            <h1 className="font-playfair text-4xl font-black uppercase text-white">Discover Music</h1>
+            <p className="text-zinc-550 mt-1 font-mono text-xs uppercase tracking-wider">// AI VIBE SILHOUETTE SELECTOR // AUDITED METRICS</p>
           </div>
           <Link
             href="/discover/wheel"
-            className="flex items-center gap-1.5 px-4 py-2.5 bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 rounded-xl text-amber-300 hover:opacity-90 transition-all text-sm font-semibold w-fit"
+            className="flex items-center gap-1.5 px-4 py-2.5 border border-zinc-800 hover:border-[#fbbf24] bg-zinc-950 text-zinc-300 hover:text-white rounded-none text-xs font-mono font-bold uppercase tracking-wider transition-all w-fit"
           >
-            🧭 Try Discovery Wheel
+            // TRY DISCOVERY WHEEL
           </Link>
         </div>
 
         {/* Tabs */}
-        <div className="flex gap-2 overflow-x-auto hide-scrollbar mb-8">
+        <div className="flex gap-2 overflow-x-auto hide-scrollbar mb-8 border-b border-zinc-800 pb-2">
           {TABS.map((t) => (
             <button
               key={t}
               onClick={() => { setTab(t); setSelected(""); setResults([]); setCustomPrompt(""); setMood("default"); }}
-              className={`flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all ${
+              className={`flex-shrink-0 px-5 py-2 rounded-none text-xs font-mono font-bold uppercase tracking-wider transition-all ${
                 tab === t
-                  ? "gradient-primary text-white"
-                  : "glass border border-white/10 text-white/50 hover:text-white hover:border-white/20"
+                  ? "bg-[#f4f3f6] text-[#0b0a0d]"
+                  : "border border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-600 bg-zinc-950/20"
               }`}
             >
               {t}
@@ -150,10 +150,14 @@ export default function DiscoverPage() {
                 <button
                   key={c.name}
                   onClick={() => fetchRecs("color", c.name)}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-xl glass border transition-all ${selected === c.name ? "border-white/40" : "border-white/10 hover:border-white/20"}`}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-none border transition-all cursor-pointer ${
+                    selected === c.name 
+                      ? "border-[#f4f3f6] bg-[#f4f3f6] text-[#0b0a0d]" 
+                      : "border-zinc-800 bg-[#111014]/40 text-zinc-300 hover:border-zinc-700"
+                  }`}
                 >
-                  <div className="w-4 h-4 rounded-full" style={{ backgroundColor: c.hex }} />
-                  <span className="text-sm text-white/70">{c.name}</span>
+                  <div className="w-3.5 h-3.5 rounded-none border border-zinc-800" style={{ backgroundColor: c.hex }} />
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider">{c.name}</span>
                 </button>
               ))}
             </div>
@@ -165,10 +169,16 @@ export default function DiscoverPage() {
                 <button
                   key={w.label}
                   onClick={() => fetchRecs("weather", w.label)}
-                  className={`glass border rounded-xl p-4 flex flex-col items-center gap-2 transition-all ${selected === w.label ? "border-violet-500/50 bg-violet-500/10" : "border-white/10 hover:border-white/20"}`}
+                  className={`border rounded-none p-4 flex flex-col items-center gap-2 transition-all cursor-pointer ${
+                    selected === w.label 
+                      ? "border-[#f4f3f6] bg-[#f4f3f6] text-[#0b0a0d]" 
+                      : "border-zinc-800 bg-[#111014]/40 text-zinc-300 hover:border-zinc-700"
+                  }`}
                 >
-                  <span className="text-3xl">{w.emoji}</span>
-                  <span className="text-sm text-white/70">{w.label}</span>
+                  <span className="text-xs font-mono font-bold uppercase tracking-widest text-zinc-400">
+                    [{w.label}]
+                  </span>
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider">{w.label}</span>
                 </button>
               ))}
             </div>
@@ -180,10 +190,14 @@ export default function DiscoverPage() {
                 <button
                   key={p.label}
                   onClick={() => fetchRecs("personality", p.label)}
-                  className={`glass border rounded-xl p-4 text-left transition-all ${selected === p.label ? "border-violet-500/50 bg-violet-500/10" : "border-white/10 hover:border-white/20"}`}
+                  className={`border rounded-none p-4 text-left transition-all cursor-pointer ${
+                    selected === p.label 
+                      ? "border-[#f4f3f6] bg-[#f4f3f6] text-[#0b0a0d]" 
+                      : "border-zinc-800 bg-[#111014]/40 text-zinc-300 hover:border-zinc-700"
+                  }`}
                 >
-                  <div className="font-outfit font-bold text-white text-lg">{p.label}</div>
-                  <div className="text-xs text-white/40">{p.desc}</div>
+                  <div className="font-mono font-bold text-sm uppercase tracking-wide">{p.label}</div>
+                  <div className="text-[10px] font-mono text-zinc-500 uppercase mt-1">{p.desc}</div>
                 </button>
               ))}
             </div>
@@ -195,10 +209,16 @@ export default function DiscoverPage() {
                 <button
                   key={a.label}
                   onClick={() => fetchRecs("activity", a.label)}
-                  className={`glass border rounded-xl p-4 flex flex-col items-center gap-2 transition-all ${selected === a.label ? "border-violet-500/50 bg-violet-500/10" : "border-white/10 hover:border-white/20"}`}
+                  className={`border rounded-none p-4 flex flex-col items-center gap-2 transition-all cursor-pointer ${
+                    selected === a.label 
+                      ? "border-[#f4f3f6] bg-[#f4f3f6] text-[#0b0a0d]" 
+                      : "border-zinc-800 bg-[#111014]/40 text-zinc-300 hover:border-zinc-700"
+                  }`}
                 >
-                  <span className="text-2xl">{a.emoji}</span>
-                  <span className="text-xs text-white/70">{a.label}</span>
+                  <span className="text-xs font-mono font-bold uppercase tracking-widest text-zinc-400">
+                    //{a.label.substring(0,4)}//
+                  </span>
+                  <span className="text-xs font-mono font-bold uppercase tracking-wider">{a.label}</span>
                 </button>
               ))}
             </div>
@@ -210,22 +230,22 @@ export default function DiscoverPage() {
                 <input
                   type="text"
                   required
-                  placeholder="Type a location, movie, book, or abstract vibe (e.g. Tokyo Night)..."
+                  placeholder="Type a location, movie, book, or abstract vibe..."
                   value={customPrompt}
                   onChange={(e) => setCustomPrompt(e.target.value)}
-                  className="flex-1 bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500/50"
+                  className="flex-1 bg-zinc-950 border border-zinc-800 rounded-none px-4 py-2.5 text-xs font-mono text-white focus:outline-none focus:border-zinc-500"
                 />
                 <button
                   type="submit"
-                  className="inline-flex items-center justify-center gap-1.5 gradient-primary px-5 py-2.5 rounded-xl text-sm font-semibold text-white hover:opacity-90 transition-all"
+                  className="inline-flex items-center justify-center bg-[#f4f3f6] text-[#0b0a0d] px-5 py-2.5 rounded-none text-xs font-mono font-bold uppercase tracking-wider hover:bg-zinc-200 transition-all cursor-pointer"
                 >
                   Explore
                 </button>
               </form>
 
               <div>
-                <span className="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2.5">
-                  Or Try Popular Inspirations
+                <span className="block text-[10px] font-mono font-bold text-zinc-550 uppercase tracking-widest mb-2.5">
+                  // POPULAR INSPIRATIONS
                 </span>
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                   {CREATIVE_SUGGESTIONS.map((s) => (
@@ -235,14 +255,14 @@ export default function DiscoverPage() {
                         setCustomPrompt(s.label);
                         fetchRecs("creative", s.label);
                       }}
-                      className={`glass border rounded-xl p-3 text-left transition-all ${
+                      className={`border rounded-none p-3 text-left transition-all cursor-pointer ${
                         selected === s.label
-                          ? "border-amber-500/50 bg-amber-500/10"
-                          : "border-white/10 hover:border-white/20"
+                          ? "border-[#fbbf24] bg-zinc-900 text-white"
+                          : "border-zinc-800 bg-[#111014]/40 text-zinc-300 hover:border-zinc-700"
                       }`}
                     >
-                      <div className="font-outfit font-bold text-white text-sm truncate">{s.label}</div>
-                      <div className="text-[10px] text-white/40 mt-0.5">{s.category}</div>
+                      <div className="font-mono font-bold text-xs uppercase tracking-wide truncate">{s.label}</div>
+                      <div className="text-[9px] font-mono text-zinc-500 uppercase mt-1">{s.category}</div>
                     </button>
                   ))}
                 </div>
@@ -255,29 +275,29 @@ export default function DiscoverPage() {
         {interpretation && (
           <div className="mb-6">
             <motion.h3
-              initial={{ letterSpacing: "0.25em", opacity: 0 }}
-              animate={{ letterSpacing: "0.1em", opacity: 1 }}
-              transition={{ duration: 1.0, ease: "easeOut" }}
-              className="font-outfit text-xs font-bold text-violet-400 uppercase tracking-widest mb-2 flex items-center gap-1.5"
+              initial={{ letterSpacing: "0.15em", opacity: 0 }}
+              animate={{ letterSpacing: "0.08em", opacity: 1 }}
+              transition={{ duration: 0.6 }}
+              className="font-mono text-[10px] font-bold text-[#fbbf24] uppercase tracking-widest mb-2 flex items-center gap-1.5"
             >
               <Sparkles size={12} />
-              AI Curator Vibe Silhouette
+              // AI CURATOR VIBE SILHOUETTE
             </motion.h3>
             <motion.div
               initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="flex items-start gap-2 p-3.5 glass rounded-xl border border-violet-500/20 bg-violet-500/5"
+              transition={{ duration: 0.4 }}
+              className="flex items-start gap-2 p-4 border border-zinc-800 bg-[#111014]/80 rounded-none"
             >
-              <p className="text-sm text-violet-200/80 leading-relaxed">{interpretation}</p>
+              <p className="text-xs font-mono text-zinc-300 leading-relaxed">{interpretation}</p>
             </motion.div>
           </div>
         )}
 
         {isLoading ? (
           <div className="flex flex-col items-center justify-center py-20 gap-4">
-            <Loader2 size={32} className="text-violet-400 animate-spin" />
-            <p className="text-white/40 text-sm">Finding music that matches your vibe…</p>
+            <Loader2 size={24} className="text-[#fbbf24] animate-spin" />
+            <p className="text-zinc-500 text-xs font-mono uppercase tracking-wider">// RETRIEVING AUDIO ARCHIVE RECORDS...</p>
           </div>
         ) : (
           <AnimatePresence>

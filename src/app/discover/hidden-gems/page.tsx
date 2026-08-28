@@ -47,29 +47,29 @@ export default function HiddenGemsPage() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <div>
-            <h1 className="font-outfit text-3xl font-bold text-white flex items-center gap-2">
-              <EyeOff className="text-amber-400" /> Hidden Gems
+            <h1 className="font-playfair text-3xl font-black uppercase text-white flex items-center gap-2">
+              <EyeOff className="text-[#fbbf24]" /> Hidden Gems
             </h1>
-            <p className="text-white/40 mt-1">Lesser-known acoustic treasures with low playcounts that deserve to be heard</p>
+            <p className="text-xs font-mono uppercase tracking-wider text-zinc-550 mt-1">// UNDER-THE-RADAR ACOUSTIC ARCHIVES & INDEPENDENT RELEASES</p>
           </div>
           <button
             onClick={loadGems}
             disabled={loading}
-            className="flex items-center gap-2 px-4 py-2 glass border border-white/10 rounded-xl text-xs font-semibold text-white/70 hover:text-white hover:border-amber-500/30 transition-all bg-white/[0.02]"
+            className="flex items-center gap-2 px-4 py-2 border border-zinc-800 bg-zinc-950 rounded-none text-xs font-mono font-bold uppercase tracking-wider text-zinc-400 hover:text-white hover:border-[#fbbf24] transition-all cursor-pointer"
           >
-            <RefreshCw size={12} className={loading ? "animate-spin" : ""} /> Disinter New Gems
+            <RefreshCw size={12} className={loading ? "animate-spin text-[#fbbf24]" : "text-[#fbbf24]"} /> Disinter New Gems
           </button>
         </div>
 
         {/* Banner */}
-        <div className="glass border border-amber-500/10 rounded-3xl p-6 bg-gradient-to-br from-amber-500/5 to-transparent flex items-start gap-4 mb-8">
-          <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center flex-shrink-0">
-            <Star size={18} className="text-amber-400" />
+        <div className="border border-zinc-800 rounded-none p-6 bg-[#111014]/40 flex items-start gap-4 mb-8">
+          <div className="w-10 h-10 rounded-none border border-zinc-700 bg-zinc-900 flex items-center justify-center flex-shrink-0">
+            <Star size={16} className="text-[#fbbf24]" />
           </div>
           <div>
-            <h3 className="font-outfit font-bold text-white text-sm">Under-the-Radar Discovery</h3>
-            <p className="text-xs text-white/50 leading-relaxed mt-0.5">
-              These tracks are validated against global listener counts to ensure they have less than 200,000 lifetime listeners. They represent indie songwriters, B-sides, and regional masterpieces.
+            <h3 className="font-playfair text-sm font-black uppercase text-white">// UNDER-THE-RADAR DISCOVERY</h3>
+            <p className="text-xs font-mono uppercase tracking-wider text-zinc-500 leading-relaxed mt-1">
+              These tracks are validated against global indexes to guarantee lifetime playcounts below 200K. Surfacing B-Sides, regional catalog artists, and bedroom producers.
             </p>
           </div>
         </div>
@@ -77,14 +77,14 @@ export default function HiddenGemsPage() {
         {/* Loading / Error / Results */}
         {loading && (
           <div className="text-center py-20">
-            <Loader2 size={36} className="text-amber-400 animate-spin mx-auto mb-3" />
-            <p className="text-sm text-white/50 font-medium">Scouring underground music archives and filtering listener metrics...</p>
+            <Loader2 size={24} className="text-[#fbbf24] animate-spin mx-auto mb-3" />
+            <p className="text-xs font-mono uppercase tracking-wider text-zinc-500">// FILTERING METRICS & DIGGING DEEP CUTS...</p>
           </div>
         )}
 
         {error && (
-          <div className="glass border border-red-500/20 bg-red-500/5 rounded-2xl p-6 text-center text-red-200 text-sm flex flex-col items-center gap-2 max-w-md mx-auto">
-            <ShieldAlert size={24} className="text-red-400" />
+          <div className="border border-rose-900 bg-rose-950/20 rounded-none p-6 text-center text-rose-200 text-xs font-mono uppercase flex flex-col items-center gap-2 max-w-md mx-auto">
+            <ShieldAlert size={20} className="text-rose-400" />
             {error}
           </div>
         )}
@@ -96,8 +96,8 @@ export default function HiddenGemsPage() {
                 <div key={`${rec.title}-${i}`} className="relative group">
                   <RecommendationCard rec={rec} index={i} />
                   {rec.listeners && (
-                    <div className="absolute top-3 left-3 bg-black/80 backdrop-blur-md border border-white/10 px-2 py-0.5 rounded text-[9px] font-bold text-amber-400 z-10">
-                      👥 {formatNumber(rec.listeners)} listeners
+                    <div className="absolute top-3 left-3 bg-zinc-950 border border-zinc-800 px-2 py-0.5 rounded-none text-[8px] font-mono font-bold text-[#fbbf24] z-10 uppercase">
+                      AUD: {formatNumber(rec.listeners)}
                     </div>
                   )}
                 </div>

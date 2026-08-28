@@ -3,45 +3,45 @@ import { ExternalLink, Mail, Music2 } from "lucide-react";
 
 export default function Footer() {
   return (
-    <footer className="border-t border-white/8 mt-20">
+    <footer className="border-t-2 border-[#f4f3f6] bg-[#0b0a0d] mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-4 gap-8">
           {/* Brand */}
           <div className="sm:col-span-2">
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-7 h-7 rounded-lg gradient-primary flex items-center justify-center">
-                <span className="text-white text-xs font-bold">R</span>
+              <div className="w-8 h-8 rounded-none border border-[#f4f3f6] bg-zinc-900 flex items-center justify-center">
+                <span className="text-[#fbbf24] text-sm font-mono font-bold">RX</span>
               </div>
-              <span className="font-outfit font-bold text-lg gradient-text">Resonix</span>
+              <span className="font-playfair font-black text-xl text-[#f4f3f6] tracking-tight">RESONIX</span>
             </div>
-            <p className="text-sm text-white/40 max-w-xs leading-relaxed">
-              AI-powered music discovery. No streams, no ads — just the perfect song for every moment.
+            <p className="text-xs font-mono uppercase tracking-wider text-zinc-500 max-w-xs leading-relaxed">
+              // AUDITED SOUND ARCHIVE // HYBRID CURATION MODE // ZERO LIMITS
             </p>
             <div className="flex items-center gap-3 mt-4">
-              <a href="https://github.com/Saatvik-G/Music-Recommendation" target="_blank" rel="noopener noreferrer"
-                className="p-2 rounded-lg glass border border-white/10 text-white/40 hover:text-white hover:border-white/20 transition-all">
-                <ExternalLink size={15} />
+              <a href="https://github.com/Saatvik-G/Resonix.git" target="_blank" rel="noopener noreferrer"
+                className="p-2 rounded-none border border-zinc-800 text-zinc-400 hover:text-white hover:border-[#fbbf24] bg-zinc-950 transition-all">
+                <ExternalLink size={14} />
               </a>
               <a href="mailto:contact@resonix.app"
-                className="p-2 rounded-lg glass border border-white/10 text-white/40 hover:text-white hover:border-white/20 transition-all">
-                <Mail size={15} />
+                className="p-2 rounded-none border border-zinc-800 text-zinc-400 hover:text-white hover:border-[#fbbf24] bg-zinc-950 transition-all">
+                <Mail size={14} />
               </a>
             </div>
           </div>
 
           {/* Links */}
           <div>
-            <h4 className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-3">Discover</h4>
-            <ul className="space-y-2">
+            <h4 className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-widest mb-3">// DISCOVER</h4>
+            <ul className="space-y-2 font-mono text-xs">
               {[
-                { label: "Search", href: "/search" },
-                { label: "Mood Discovery", href: "/discover" },
-                { label: "Genre Explorer", href: "/genre/indie rock" },
-                { label: "AI Playlists", href: "/playlist" },
-                { label: "Music Chat", href: "/chat" },
+                { label: "SEARCH INDEX", href: "/search" },
+                { label: "MOOD MATRIX", href: "/discover" },
+                { label: "GENRE GRID", href: "/genre/indie rock" },
+                { label: "AI SPOTLIGHTS", href: "/playlist" },
+                { label: "CURATOR CHAT", href: "/chat" },
               ].map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="text-sm text-white/40 hover:text-white/70 transition-colors">
+                  <Link href={l.href} className="text-zinc-400 hover:text-white transition-colors">
                     {l.label}
                   </Link>
                 </li>
@@ -50,16 +50,16 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-xs font-semibold text-white/50 uppercase tracking-wider mb-3">Info</h4>
-            <ul className="space-y-2">
+            <h4 className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-widest mb-3">// METADATA</h4>
+            <ul className="space-y-2 font-mono text-xs">
               {[
-                { label: "About", href: "#" },
-                { label: "Privacy Policy", href: "#" },
-                { label: "API", href: "#" },
-                { label: "GitHub", href: "https://github.com/Saatvik-G/Music-Recommendation" },
+                { label: "ABOUT RESONIX", href: "#" },
+                { label: "PRIVACY PROTOCOL", href: "#" },
+                { label: "API INDEX", href: "#" },
+                { label: "SOURCE CODE", href: "https://github.com/Saatvik-G/Resonix.git" },
               ].map((l) => (
                 <li key={l.label}>
-                  <Link href={l.href} className="text-sm text-white/40 hover:text-white/70 transition-colors" target={l.href.startsWith("http") ? "_blank" : undefined}>
+                  <Link href={l.href} className="text-zinc-400 hover:text-white transition-colors" target={l.href.startsWith("http") ? "_blank" : undefined}>
                     {l.label}
                   </Link>
                 </li>
@@ -68,9 +68,9 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/5 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p className="text-xs text-white/25">© 2025 Resonix. Built with ❤️ and AI.</p>
-          <p className="text-xs text-white/20">Powered by Gemini AI · Last.fm · MusicBrainz</p>
+        <div className="border-t border-zinc-800/80 mt-10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2 font-mono text-[10px] text-zinc-500">
+          <p>© 2026 Resonix. Built with code & curation.</p>
+          <p>Powered by Gemini AI · Last.fm · MusicBrainz Archive</p>
         </div>
       </div>
     </footer>

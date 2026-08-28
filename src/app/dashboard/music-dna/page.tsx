@@ -107,10 +107,10 @@ export default function MusicDNAPage() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <div>
-            <h1 className="font-outfit text-3xl font-bold text-white flex items-center gap-2">
-              <Layers className="text-amber-400" /> Music DNA Profile
+            <h1 className="font-playfair text-3xl font-black uppercase text-white flex items-center gap-2">
+              <Layers className="text-[#fbbf24]" /> Music DNA Profile
             </h1>
-            <p className="text-white/40 mt-1">Visualize your unique acoustic fingerprints and listening personality</p>
+            <p className="text-xs font-mono uppercase tracking-wider text-zinc-550 mt-1">// ACOUSTIC FINGERPRINTS & PERSONALITY SPECTRA</p>
           </div>
           {dnaData && (
             <button
@@ -118,7 +118,7 @@ export default function MusicDNAPage() {
                 setDnaData(null);
                 localStorage.removeItem("resonix_music_dna");
               }}
-              className="flex items-center gap-2 px-4 py-2 glass border border-white/10 rounded-xl text-xs font-semibold text-white/60 hover:text-white hover:border-amber-500/30 transition-all bg-white/[0.02]"
+              className="flex items-center gap-2 px-4 py-2 border border-zinc-800 bg-zinc-950 rounded-none text-xs font-mono font-bold uppercase tracking-wider text-zinc-400 hover:text-white hover:border-[#fbbf24] transition-all cursor-pointer"
             >
               <RefreshCw size={12} /> Re-Analyze DNA
             </button>
@@ -128,8 +128,8 @@ export default function MusicDNAPage() {
         {/* Loading state */}
         {loading && (
           <div className="flex flex-col items-center justify-center py-20 gap-4">
-            <Loader2 size={36} className="text-amber-400 animate-spin" />
-            <p className="text-white/50 text-sm font-medium">Extracting sonic metrics and compiling your profile...</p>
+            <Loader2 size={24} className="text-[#fbbf24] animate-spin" />
+            <p className="text-zinc-500 text-xs font-mono uppercase tracking-wider">// DECODING SONIC METRICS & MATRIX SEQUENCING...</p>
           </div>
         )}
 
@@ -138,23 +138,23 @@ export default function MusicDNAPage() {
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass border border-white/10 rounded-3xl p-6 sm:p-8 bg-[#121118]/80 max-w-2xl mx-auto"
+            className="border border-zinc-800 rounded-none p-6 sm:p-8 bg-[#111014]/50 max-w-2xl mx-auto"
           >
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
-                <Sparkles size={18} className="text-amber-400" />
+              <div className="w-10 h-10 rounded-none border border-zinc-700 bg-zinc-900 flex items-center justify-center">
+                <Sparkles size={16} className="text-[#fbbf24]" />
               </div>
               <div>
-                <h3 className="font-outfit font-bold text-lg text-white">Generate Your Music DNA</h3>
-                <p className="text-xs text-white/40">Select your preferences below (combined with your listening history if logged in)</p>
+                <h3 className="font-playfair text-lg font-black uppercase text-white">// GENERATE YOUR MUSIC DNA</h3>
+                <p className="text-xs font-mono text-zinc-500 uppercase tracking-wide mt-1">Select preferences below to construct your fingerprint spectrum.</p>
               </div>
             </div>
 
             <div className="space-y-6">
               {/* Genres */}
               <div>
-                <span className="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2.5">
-                  Select Favorite Genres
+                <span className="block text-xs font-mono font-bold text-zinc-400 uppercase tracking-widest mb-2.5">
+                  // SELECT FAVORITE GENRES
                 </span>
                 <div className="flex flex-wrap gap-2">
                   {AVAILABLE_GENRES.map(genre => {
@@ -163,10 +163,10 @@ export default function MusicDNAPage() {
                       <button
                         key={genre}
                         onClick={() => handleToggleGenre(genre)}
-                        className={`text-xs px-3 py-1.5 rounded-full border transition-all duration-200 ${
+                        className={`text-xs font-mono uppercase tracking-wider px-3 py-1.5 rounded-none border transition-all duration-200 cursor-pointer ${
                           selected
-                            ? "bg-amber-400/20 border-amber-400 text-amber-300 font-semibold"
-                            : "bg-white/[0.02] border-white/5 text-white/60 hover:text-white hover:border-white/20"
+                            ? "bg-[#fbbf24] border-[#fbbf24] text-zinc-950 font-bold"
+                            : "bg-zinc-950 border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-500"
                         }`}
                       >
                         {genre}
@@ -178,8 +178,8 @@ export default function MusicDNAPage() {
 
               {/* Moods */}
               <div>
-                <span className="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-2.5">
-                  Select Preferred Moods
+                <span className="block text-xs font-mono font-bold text-zinc-400 uppercase tracking-widest mb-2.5">
+                  // SELECT PREFERRED MOODS
                 </span>
                 <div className="flex flex-wrap gap-2">
                   {AVAILABLE_MOODS.map(mood => {
@@ -188,10 +188,10 @@ export default function MusicDNAPage() {
                       <button
                         key={mood}
                         onClick={() => handleToggleMood(mood)}
-                        className={`text-xs px-3 py-1.5 rounded-full border transition-all duration-200 ${
+                        className={`text-xs font-mono uppercase tracking-wider px-3 py-1.5 rounded-none border transition-all duration-200 cursor-pointer ${
                           selected
-                            ? "bg-amber-400/20 border-amber-400 text-amber-300 font-semibold"
-                            : "bg-white/[0.02] border-white/5 text-white/60 hover:text-white hover:border-white/20"
+                            ? "bg-[#fbbf24] border-[#fbbf24] text-zinc-950 font-bold"
+                            : "bg-zinc-950 border-zinc-800 text-zinc-400 hover:text-white hover:border-zinc-500"
                         }`}
                       >
                         {mood}
@@ -204,9 +204,9 @@ export default function MusicDNAPage() {
               {/* Action Button */}
               <button
                 onClick={generateDNA}
-                className="w-full mt-2 inline-flex items-center justify-center gap-2 gradient-primary py-3 px-4 rounded-xl text-sm font-semibold text-white hover:opacity-95 transition-all shadow-lg"
+                className="w-full mt-2 inline-flex items-center justify-center gap-2 bg-[#f4f3f6] text-[#0b0a0d] hover:bg-zinc-200 py-3.5 px-4 rounded-none text-xs font-mono font-bold uppercase tracking-wider transition-all cursor-pointer"
               >
-                <BarChart2 size={16} /> Analyze & Create Profile
+                <BarChart2 size={14} /> Analyze & Create Profile
               </button>
             </div>
           </motion.div>
@@ -222,26 +222,25 @@ export default function MusicDNAPage() {
               animate={{ opacity: 1, x: 0 }}
               className="lg:col-span-7 flex flex-col gap-6"
             >
-              <div className="glass border border-white/15 rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-amber-500/5 to-violet-500/5 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-32 h-32 bg-amber-400/5 rounded-full blur-3xl" />
-                <span className="text-[10px] uppercase font-extrabold tracking-widest text-amber-400">
-                  Your Sonic Persona
+              <div className="border border-zinc-800 rounded-none p-6 sm:p-8 bg-[#111014]/20 relative overflow-hidden">
+                <span className="text-[9px] font-mono uppercase font-bold tracking-widest text-[#fbbf24]">
+                  // YOUR SONIC ARCHETYPE
                 </span>
-                <h2 className="font-outfit text-2xl sm:text-3xl font-extrabold text-white mt-1 mb-3">
+                <h2 className="font-playfair text-2xl sm:text-3xl font-black text-white uppercase mt-1 mb-3">
                   {dnaData.archetype}
                 </h2>
-                <p className="text-zinc-300 text-sm leading-relaxed mb-6">
+                <p className="text-zinc-400 text-xs font-mono uppercase tracking-wider leading-relaxed mb-6">
                   {dnaData.description}
                 </p>
 
                 {/* Traits */}
                 <div className="flex flex-wrap gap-2.5">
-                  {dnaData.traits.map((trait: string, idx: number) => (
+                  {dnaData.traits.map((trait: string) => (
                     <span
                       key={trait}
-                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs text-white/80 font-medium"
+                      className="inline-flex items-center gap-1.5 px-3 py-1 rounded-none border border-zinc-850 bg-zinc-950 text-xs font-mono text-zinc-300 font-bold uppercase"
                     >
-                      <Star size={12} className="text-amber-400" />
+                      <Star size={11} className="text-[#fbbf24]" />
                       {trait}
                     </span>
                   ))}
@@ -250,35 +249,35 @@ export default function MusicDNAPage() {
 
               {/* Detailed Fingerprints */}
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="glass border border-white/10 rounded-2xl p-5 bg-white/[0.02]">
-                  <div className="flex items-center gap-2 mb-3 text-amber-300 font-semibold text-xs uppercase tracking-wider">
-                    <Music2 size={14} /> Top Genres
+                <div className="border border-zinc-800 rounded-none p-5 bg-[#111014]/10">
+                  <div className="flex items-center gap-2 mb-3 text-[#fbbf24] font-mono font-bold text-xs uppercase tracking-wider">
+                    <Music2 size={13} /> Top Genres
                   </div>
-                  <ul className="space-y-1.5">
+                  <ul className="space-y-1.5 font-mono text-xs uppercase text-zinc-400">
                     {dnaData.topGenres.map((g: string) => (
-                      <li key={g} className="text-sm text-zinc-300 font-medium">• {g}</li>
+                      <li key={g}>// {g}</li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="glass border border-white/10 rounded-2xl p-5 bg-white/[0.02]">
-                  <div className="flex items-center gap-2 mb-3 text-indigo-300 font-semibold text-xs uppercase tracking-wider">
-                    <Calendar size={14} /> Decades Profile
+                <div className="border border-zinc-800 rounded-none p-5 bg-[#111014]/10">
+                  <div className="flex items-center gap-2 mb-3 text-zinc-400 font-mono font-bold text-xs uppercase tracking-wider">
+                    <Calendar size={13} /> Decades Profile
                   </div>
-                  <ul className="space-y-1.5">
+                  <ul className="space-y-1.5 font-mono text-xs uppercase text-zinc-400">
                     {dnaData.topDecades.map((d: string) => (
-                      <li key={d} className="text-sm text-zinc-300 font-medium">• {d}</li>
+                      <li key={d}>// {d}</li>
                     ))}
                   </ul>
                 </div>
 
-                <div className="glass border border-white/10 rounded-2xl p-5 bg-white/[0.02]">
-                  <div className="flex items-center gap-2 mb-3 text-pink-300 font-semibold text-xs uppercase tracking-wider">
-                    <Smile size={14} /> Mood Synergy
+                <div className="border border-zinc-800 rounded-none p-5 bg-[#111014]/10">
+                  <div className="flex items-center gap-2 mb-3 text-[#fbbf24] font-mono font-bold text-xs uppercase tracking-wider">
+                    <Smile size={13} /> Mood Synergy
                   </div>
-                  <ul className="space-y-1.5">
+                  <ul className="space-y-1.5 font-mono text-xs uppercase text-zinc-400">
                     {dnaData.topMoods.map((m: string) => (
-                      <li key={m} className="text-sm text-zinc-300 font-medium">• {m}</li>
+                      <li key={m}>// {m}</li>
                     ))}
                   </ul>
                 </div>
@@ -289,45 +288,43 @@ export default function MusicDNAPage() {
             <motion.div
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="lg:col-span-5 glass border border-white/10 rounded-3xl p-6 bg-[#121118]/80 flex flex-col justify-center min-h-[350px]"
+              className="lg:col-span-5 border border-zinc-800 rounded-none p-6 bg-[#111014]/30 flex flex-col justify-center min-h-[350px]"
             >
-              <h3 className="font-outfit font-bold text-center text-white text-base mb-4">
-                Acoustic Dimension Mix
+              <h3 className="font-mono text-xs font-bold text-center text-white uppercase tracking-widest mb-4">
+                // ACOUSTIC DIMENSION INDEX
               </h3>
               <div className="w-full h-72">
                 {mounted && (
                   <ResponsiveContainer width="100%" height="100%">
-                    <RadarChart cx="50%" cy="50%" outerRadius="75%" data={chartData}>
-                      <PolarGrid stroke="rgba(255, 255, 255, 0.08)" />
+                    <RadarChart cx="50%" cy="50%" outerRadius="70%" data={chartData}>
+                      <PolarGrid stroke="rgba(255, 255, 255, 0.04)" />
                       <PolarAngleAxis
                         dataKey="subject"
-                        stroke="rgba(255, 255, 255, 0.5)"
-                        tick={{ fill: "rgba(255, 255, 255, 0.6)", fontSize: 10, fontWeight: 600 }}
+                        stroke="rgba(255, 255, 255, 0.3)"
+                        tick={{ fill: "rgba(255, 255, 255, 0.5)", fontSize: 9, fontWeight: 700, fontFamily: "monospace" }}
                       />
                       <PolarRadiusAxis
                         angle={30}
                         domain={[0, 100]}
                         stroke="none"
-                        tick={{ fill: "rgba(255, 255, 255, 0.3)", fontSize: 8 }}
+                        tick={{ fill: "rgba(255, 255, 255, 0.2)", fontSize: 8, fontFamily: "monospace" }}
                       />
                       <Radar
                         name="My DNA"
                         dataKey="value"
-                        stroke="#f59e0b"
-                        fill="#f59e0b"
-                        fillOpacity={0.25}
+                        stroke="#fbbf24"
+                        fill="#fbbf24"
+                        fillOpacity={0.15}
                         shape={(props: any) => {
                           const { points, stroke, fill, fillOpacity } = props;
                           if (!points || points.length === 0) return <g />;
                           
-                          // Create path string from points
                           const pathString = points.reduce((acc: string, p: any, i: number) => {
                             return `${acc}${i === 0 ? "M" : "L"}${p.x},${p.y}`;
                           }, "") + "Z";
 
                           return (
                             <g>
-                              {/* Fill polygon with scale-in from center */}
                               <motion.path
                                 d={pathString}
                                 fill={fill}
@@ -337,29 +334,27 @@ export default function MusicDNAPage() {
                                 transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
                                 style={{ transformOrigin: `${props.cx}px ${props.cy}px` }}
                               />
-                              {/* Stroke drawing path reveal */}
                               <motion.path
                                 d={pathString}
                                 fill="none"
                                 stroke={stroke}
-                                strokeWidth={2.5}
+                                strokeWidth={2}
                                 initial={{ pathLength: 0 }}
                                 animate={{ pathLength: 1 }}
-                                transition={{ duration: 1.5, ease: "easeInOut" }}
+                                transition={{ duration: 1.2, ease: "easeInOut" }}
                               />
-                              {/* Staggered points reveal */}
                               {points.map((p: any, i: number) => (
                                 <motion.circle
                                   key={i}
                                   cx={p.x}
                                   cy={p.y}
-                                  r={4.5}
-                                  fill="#fff"
+                                  r={3.5}
+                                  fill="#0b0a0d"
                                   stroke={stroke}
-                                  strokeWidth={2}
+                                  strokeWidth={1.5}
                                   initial={{ scale: 0, opacity: 0 }}
                                   animate={{ scale: 1, opacity: 1 }}
-                                  transition={{ delay: 1.2 + i * 0.1, duration: 0.3, type: "spring", stiffness: 100 }}
+                                  transition={{ delay: 1.0 + i * 0.1, duration: 0.2 }}
                                 />
                               ))}
                             </g>
@@ -368,9 +363,10 @@ export default function MusicDNAPage() {
                       />
                       <Tooltip
                         contentStyle={{
-                          backgroundColor: "#1c1917",
-                          borderColor: "rgba(255,255,255,0.1)",
-                          borderRadius: "12px",
+                          backgroundColor: "#0b0a0d",
+                          borderColor: "#27272a",
+                          borderRadius: "0px",
+                          fontFamily: "monospace",
                           color: "#fff",
                         }}
                       />
@@ -382,8 +378,8 @@ export default function MusicDNAPage() {
 
             {/* Bottom: Signature Sound Recommendations */}
             <div className="lg:col-span-12 mt-4">
-              <h3 className="font-outfit text-xl font-bold text-white mb-6">
-                Your DNA Theme Tracks
+              <h3 className="font-playfair text-xl font-black uppercase text-white mb-6">
+                // DNA SIGNATURE SOUND RECORDS
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                 {dnaData.dnaTracks.map((rec: any, i: number) => (

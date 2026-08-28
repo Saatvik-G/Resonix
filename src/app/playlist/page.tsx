@@ -54,19 +54,19 @@ function PlaylistGeneratorContent() {
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 pb-24 md:pb-8">
       <Letterbox active={!!activePlaylist || isGenerating} />
       <div className="mb-8">
-        <h1 className="font-outfit text-3xl font-bold text-white mb-1">AI Playlist Generator</h1>
-        <p className="text-white/40">Describe a vibe, emotion, or scenario — get a curated playlist with a story</p>
+        <h1 className="font-playfair text-3xl font-black uppercase text-white">AI Playlist Generator</h1>
+        <p className="text-xs font-mono uppercase tracking-wider text-zinc-550 mt-1">// DESCRIBE A SCENARIO OR EMOTIONAL ARCHETYPE TO DEPLOY A CURATED SEQUENCE</p>
       </div>
 
       {/* Generator input */}
-      <div className="glass border border-white/10 rounded-2xl p-6 mb-6">
+      <div className="border border-zinc-800 rounded-none p-6 mb-6 bg-[#111014]/45">
         <div className="relative mb-4">
           <textarea
             value={prompt}
             onChange={(e) => setPrompt(e.target.value)}
             placeholder='e.g. "My first breakup at 3am" or "Cyberpunk night in a neon city"'
             rows={3}
-            className="w-full bg-white/5 border border-white/10 rounded-xl p-4 text-white placeholder-white/25 text-sm outline-none focus:border-violet-500/50 resize-none transition-colors"
+            className="w-full bg-zinc-950 border border-zinc-800 rounded-none p-4 text-xs font-mono text-white placeholder-zinc-700 outline-none focus:border-zinc-500 resize-none transition-colors"
             onKeyDown={(e) => e.key === "Enter" && e.metaKey && handleGenerate()}
           />
         </div>
@@ -77,7 +77,7 @@ function PlaylistGeneratorContent() {
             <button
               key={s}
               onClick={() => { setPrompt(s); }}
-              className="text-xs px-3 py-1.5 rounded-full glass border border-white/10 text-white/50 hover:text-white/80 hover:border-white/20 transition-all"
+              className="text-[10px] font-mono font-bold uppercase tracking-wider px-3 py-1.5 border border-zinc-850 bg-zinc-950 text-zinc-400 hover:text-white hover:border-zinc-550 transition-all rounded-none cursor-pointer"
             >
               {s}
             </button>
@@ -87,9 +87,9 @@ function PlaylistGeneratorContent() {
         <button
           onClick={() => handleGenerate()}
           disabled={isGenerating || !prompt.trim()}
-          className="flex items-center gap-2 gradient-primary px-6 py-2.5 rounded-xl font-semibold text-white transition-all hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed"
+          className="flex items-center gap-2 bg-[#f4f3f6] text-[#0b0a0d] hover:bg-zinc-200 px-6 py-2.5 rounded-none text-xs font-mono font-bold uppercase tracking-wider transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
         >
-          {isGenerating ? <Loader2 size={15} className="animate-spin" /> : <Sparkles size={15} />}
+          {isGenerating ? <Loader2 size={13} className="animate-spin text-[#0b0a0d]" /> : <Sparkles size={13} />}
           {isGenerating ? "Generating…" : "Generate Playlist"}
         </button>
       </div>
@@ -97,34 +97,34 @@ function PlaylistGeneratorContent() {
       {/* Active playlist result */}
       {activePlaylist && (
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 15 }}
           animate={{ opacity: 1, y: 0 }}
-          className="glass border border-violet-500/20 rounded-2xl p-6 mb-8 bg-gradient-to-br from-violet-600/10 to-indigo-600/10"
+          className="border border-zinc-800 rounded-none p-6 mb-8 bg-zinc-950"
         >
-          <div className="flex items-start justify-between gap-4 mb-4">
+          <div className="flex items-start justify-between gap-4 mb-4 border-b border-zinc-850 pb-4">
             <div>
-              <div className="text-xs text-violet-400 font-medium mb-1 flex items-center gap-1.5">
+              <div className="text-[9px] font-mono font-bold text-[#fbbf24] uppercase tracking-widest mb-1 flex items-center gap-1.5">
                 <Sparkles size={11} /> AI-Generated Playlist
               </div>
               <motion.h2
-                initial={{ letterSpacing: "0.25em", opacity: 0 }}
-                animate={{ letterSpacing: "0.1em", opacity: 1 }}
-                transition={{ duration: 1.2, ease: "easeOut" }}
-                className="font-outfit text-2xl font-black text-white tracking-widest uppercase"
+                initial={{ letterSpacing: "0.15em", opacity: 0 }}
+                animate={{ letterSpacing: "0.08em", opacity: 1 }}
+                transition={{ duration: 0.6 }}
+                className="font-playfair text-2xl font-black text-white tracking-widest uppercase"
               >
                 {activePlaylist.name}
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ delay: 0.4, duration: 1.0 }}
-                className="text-white/50 text-sm mt-2 max-w-xl leading-relaxed italic"
+                transition={{ delay: 0.2 }}
+                className="text-zinc-400 font-mono text-xs uppercase tracking-wider leading-relaxed mt-2 max-w-xl"
               >
                 {activePlaylist.conceptBlurb}
               </motion.p>
             </div>
-            <div className="flex items-center gap-1 text-xs text-white/30 flex-shrink-0">
-              <Music2 size={12} />
+            <div className="flex items-center gap-1 text-[9px] font-mono text-zinc-550 uppercase tracking-wider flex-shrink-0">
+              <Music2 size={11} />
               {activePlaylist.tracks?.length || 0} tracks
             </div>
           </div>
@@ -136,15 +136,15 @@ function PlaylistGeneratorContent() {
                 initial={{ opacity: 0, x: -10 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="flex items-center gap-4 glass rounded-xl p-3 border border-white/5 hover:border-white/10 group transition-all"
+                className="flex items-center gap-4 border border-zinc-900 rounded-none p-3 bg-[#111014]/25 hover:border-zinc-700 transition-all group"
               >
-                <span className="text-white/20 text-sm w-5 text-right flex-shrink-0">{i + 1}</span>
-                <div className="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center flex-shrink-0">
-                  <Music2 size={12} className="text-white" />
+                <span className="text-zinc-600 text-xs font-mono w-5 text-right flex-shrink-0">{i + 1}</span>
+                <div className="w-8 h-8 rounded-none border border-zinc-800 bg-zinc-900 flex items-center justify-center flex-shrink-0">
+                  <Music2 size={12} className="text-[#fbbf24]" />
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="font-medium text-white text-sm truncate">{track.title}</div>
-                  <div className="text-xs text-white/40 truncate">{track.artist}</div>
+                <div className="flex-1 min-w-0 font-mono">
+                  <div className="font-bold text-white text-xs truncate uppercase">{track.title}</div>
+                  <div className="text-[10px] text-zinc-500 truncate uppercase">{track.artist}</div>
                 </div>
                 <div className="opacity-0 group-hover:opacity-100 transition-opacity">
                   <ListenLinks artist={track.artist} track={track.title} size="sm" />
@@ -158,21 +158,21 @@ function PlaylistGeneratorContent() {
       {/* Previous playlists */}
       {playlists.length > 0 && (
         <div>
-          <h3 className="font-outfit font-semibold text-white/60 text-sm uppercase tracking-wider mb-3">Previous Playlists</h3>
+          <h3 className="font-mono text-xs font-bold text-zinc-500 uppercase tracking-widest mb-3">// PREVIOUS SPOTLIGHT ARCHIVES</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {playlists.map((pl) => (
-              <div key={pl.id} className="glass border border-white/8 rounded-xl p-4 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl gradient-primary flex items-center justify-center flex-shrink-0">
-                  <Music2 size={14} className="text-white" />
+              <div key={pl.id} className="border border-zinc-850 rounded-none p-4 flex items-center gap-3 bg-zinc-950/20">
+                <div className="w-8 h-8 rounded-none border border-zinc-800 bg-zinc-900 flex items-center justify-center flex-shrink-0">
+                  <Music2 size={12} className="text-[#fbbf24]" />
                 </div>
-                <div className="flex-1 min-w-0">
-                  <div className="font-semibold text-white text-sm truncate">{pl.name}</div>
-                  <div className="text-xs text-white/30">{pl.tracks?.length} tracks</div>
+                <div className="flex-1 min-w-0 font-mono">
+                  <div className="font-bold text-white text-xs truncate uppercase">{pl.name}</div>
+                  <div className="text-[9px] text-zinc-500 uppercase">{pl.tracks?.length} tracks</div>
                 </div>
                 <div className="flex gap-2">
-                  <button onClick={() => setActivePlaylist(pl)} className="text-xs px-2 py-1 rounded-lg glass border border-white/10 text-white/50 hover:text-white transition-all">View</button>
-                  <button onClick={() => removePlaylist(pl.id)} className="p-1.5 rounded-lg hover:bg-red-500/10 text-white/30 hover:text-red-400 transition-all">
-                    <Trash2 size={12} />
+                  <button onClick={() => setActivePlaylist(pl)} className="text-[10px] font-mono font-bold uppercase tracking-wider px-2.5 py-1 border border-zinc-800 bg-zinc-900 text-zinc-400 hover:text-white transition-all rounded-none cursor-pointer">View</button>
+                  <button onClick={() => removePlaylist(pl.id)} className="p-1 border border-zinc-800 hover:border-rose-900 hover:text-rose-400 text-zinc-600 transition-all rounded-none bg-zinc-900 cursor-pointer">
+                    <Trash2 size={11} />
                   </button>
                 </div>
               </div>

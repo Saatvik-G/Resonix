@@ -134,24 +134,24 @@ export default function TasteMapPage() {
         
         {/* Header */}
         <div className="flex items-center gap-3 mb-6">
-          <Link href="/dashboard" className="w-8 h-8 rounded-xl glass border border-white/10 flex items-center justify-center text-white/60 hover:text-white transition-colors">
-            <ArrowLeft size={16} />
+          <Link href="/dashboard" className="w-8 h-8 rounded-none border border-zinc-800 bg-zinc-950 flex items-center justify-center text-zinc-400 hover:text-white transition-colors">
+            <ArrowLeft size={14} />
           </Link>
           <div>
-            <h1 className="font-outfit text-2xl font-bold text-white flex items-center gap-2">
-              <Globe className="text-violet-400" size={22} /> Music Taste Map
+            <h1 className="font-playfair text-2xl font-black uppercase text-white flex items-center gap-2">
+              <Globe className="text-[#fbbf24]" size={20} /> Music Taste Map
             </h1>
-            <p className="text-xs text-white/40">Visualize where your favorite artists originate from using MusicBrainz metadata</p>
+            <p className="text-xs font-mono uppercase tracking-wider text-zinc-550 mt-1">// VISUALIZE REGIONAL ORIGINS VIA MUSICBRAINZ INDEX</p>
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           
           {/* Mapping Controls */}
-          <div className="glass border border-white/8 rounded-2xl p-6 lg:col-span-1 space-y-6 h-fit bg-[#121118]/40">
+          <div className="border border-zinc-800 rounded-none p-6 lg:col-span-1 space-y-6 h-fit bg-[#111014]/25">
             <div>
-              <h3 className="font-outfit font-bold text-white text-base mb-2">Map an Artist</h3>
-              <p className="text-xs text-white/40">Search any artist below to automatically query MusicBrainz and pin them on your world map.</p>
+              <h3 className="font-playfair text-base font-black uppercase text-white">// MAP AN ARTIST</h3>
+              <p className="text-xs font-mono text-zinc-500 uppercase tracking-wide mt-1">Search any artist below to automatically query MusicBrainz and pin them on your world map.</p>
             </div>
 
             <form onSubmit={handleAddArtist} className="relative">
@@ -161,34 +161,34 @@ export default function TasteMapPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="e.g. Daft Punk, Diljit Dosanjh..."
-                className="w-full bg-white/5 border border-white/10 rounded-xl pl-10 pr-10 py-2.5 text-xs text-white placeholder-white/25 outline-none focus:border-violet-500/50"
+                className="w-full bg-zinc-950 border border-zinc-800 rounded-none pl-10 pr-10 py-2.5 text-xs font-mono text-white placeholder-zinc-700 outline-none focus:border-zinc-500"
               />
-              <Search className="absolute left-3.5 top-3 text-white/20" size={13} />
+              <Search className="absolute left-3.5 top-3.5 text-zinc-600" size={13} />
               <button
                 type="submit"
                 disabled={isLoading || !searchQuery.trim()}
-                className="absolute right-2 top-1.5 w-7 h-7 rounded-lg gradient-primary flex items-center justify-center text-white disabled:opacity-40"
+                className="absolute right-2 top-1.5 w-7 h-7 rounded-none bg-[#f4f3f6] text-[#0b0a0d] flex items-center justify-center disabled:opacity-40 cursor-pointer"
               >
-                {isLoading ? <Loader2 size={12} className="animate-spin" /> : <Plus size={12} />}
+                {isLoading ? <Loader2 size={12} className="animate-spin text-[#0b0a0d]" /> : <Plus size={12} />}
               </button>
             </form>
 
-            {error && <p className="text-xs text-rose-400 bg-rose-500/10 border border-rose-500/20 rounded-xl px-3 py-2">{error}</p>}
-            {success && <p className="text-xs text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 rounded-xl px-3 py-2 flex items-center gap-1"><Sparkles size={11} /> {success}</p>}
+            {error && <p className="text-xs font-mono uppercase text-rose-400 bg-rose-950/20 border border-rose-900 rounded-none px-3 py-2">{error}</p>}
+            {success && <p className="text-xs font-mono uppercase text-emerald-400 bg-emerald-950/20 border border-emerald-900 rounded-none px-3 py-2 flex items-center gap-1"><Sparkles size={11} /> {success}</p>}
 
             {/* List of mapped artists */}
-            <div className="border-t border-white/5 pt-4">
-              <h4 className="text-xs font-bold text-white/40 uppercase tracking-wider mb-3">Mapped Artists ({artists.length})</h4>
+            <div className="border-t border-zinc-850 pt-4">
+              <h4 className="text-[10px] font-mono font-bold text-zinc-500 uppercase tracking-widest mb-3">Mapped Artists ({artists.length})</h4>
               <div className="space-y-2 max-h-60 overflow-y-auto pr-1">
                 {artists.map((artist, idx) => (
                   <div 
                     key={idx} 
-                    className="flex justify-between items-center glass border border-white/5 rounded-xl px-3 py-2 bg-white/[0.01]"
+                    className="flex justify-between items-center border border-zinc-850 rounded-none px-3 py-2 bg-zinc-900/10"
                     onMouseEnter={() => setHoveredCountry(artist.country)}
                     onMouseLeave={() => setHoveredCountry(null)}
                   >
-                    <span className="text-xs font-semibold text-white">{artist.name}</span>
-                    <span className="text-[10px] text-violet-400 bg-violet-500/10 px-2 py-0.5 rounded-full border border-violet-500/20">
+                    <span className="text-xs font-mono font-bold text-white">{artist.name}</span>
+                    <span className="text-[9px] font-mono font-bold text-[#fbbf24] bg-zinc-950 px-2 py-0.5 border border-zinc-800 uppercase">
                       {artist.area}
                     </span>
                   </div>
@@ -199,37 +199,36 @@ export default function TasteMapPage() {
           </div>
 
           {/* Interactive World Map */}
-          <div className="glass border border-white/8 rounded-3xl p-6 lg:col-span-2 flex flex-col justify-between min-h-[400px] relative overflow-hidden bg-black/40">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-violet-600/5 rounded-full blur-3xl pointer-events-none" />
+          <div className="border border-zinc-800 rounded-none p-6 lg:col-span-2 flex flex-col justify-between min-h-[400px] relative overflow-hidden bg-[#111014]/10">
             
             <div className="flex justify-between items-center mb-4">
-              <h3 className="font-outfit font-bold text-white text-base">Sonic Origin Map</h3>
-              <span className="text-[10px] text-white/30 font-mono">Resonix SVG Map Engine v2.0</span>
+              <h3 className="font-playfair text-base font-black uppercase text-white">// SONIC ORIGIN MAP</h3>
+              <span className="text-[9px] text-zinc-650 font-mono uppercase tracking-widest">Resonix SVG Map Engine v2.0</span>
             </div>
 
             {/* SVG Interactive Map Overlay */}
-            <div className="relative w-full aspect-[2/1] bg-white/[0.01] border border-white/5 rounded-2xl overflow-hidden flex items-center justify-center p-2">
+            <div className="relative w-full aspect-[2/1] bg-zinc-950 border border-zinc-850 rounded-none overflow-hidden flex items-center justify-center p-2">
               
               {/* Fake grid texture for sci-fi look */}
-              <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff03_1px,transparent_1px),linear-gradient(to_bottom,#ffffff03_1px,transparent_1px)] bg-[size:20px_20px]" />
+              <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff02_1px,transparent_1px),linear-gradient(to_bottom,#ffffff02_1px,transparent_1px)] bg-[size:20px_20px]" />
 
               <svg 
                 viewBox="0 0 800 400" 
-                className="w-full h-full text-white/10 select-none pointer-events-auto"
+                className="w-full h-full text-zinc-900 select-none pointer-events-auto"
               >
                 {/* Simplified Continents outlines */}
                 {/* North America */}
-                <path d="M 60,70 L 160,50 L 220,110 L 190,170 L 130,200 L 90,170 L 60,110 Z" fill="currentColor" className="hover:text-white/15 transition-colors duration-300" />
+                <path d="M 60,70 L 160,50 L 220,110 L 190,170 L 130,200 L 90,170 L 60,110 Z" fill="currentColor" className="hover:text-zinc-800 transition-colors duration-300" />
                 {/* South America */}
-                <path d="M 180,210 L 220,230 L 260,280 L 250,350 L 210,380 L 180,310 Z" fill="currentColor" className="hover:text-white/15 transition-colors duration-300" />
+                <path d="M 180,210 L 220,230 L 260,280 L 250,350 L 210,380 L 180,310 Z" fill="currentColor" className="hover:text-zinc-800 transition-colors duration-300" />
                 {/* Europe */}
-                <path d="M 350,70 L 460,60 L 450,140 L 380,160 Z" fill="currentColor" className="hover:text-white/15 transition-colors duration-300" />
+                <path d="M 350,70 L 460,60 L 450,140 L 380,160 Z" fill="currentColor" className="hover:text-zinc-800 transition-colors duration-300" />
                 {/* Africa */}
-                <path d="M 370,180 L 450,180 L 490,240 L 460,330 L 400,280 Z" fill="currentColor" className="hover:text-white/15 transition-colors duration-300" />
+                <path d="M 370,180 L 450,180 L 490,240 L 460,330 L 400,280 Z" fill="currentColor" className="hover:text-zinc-800 transition-colors duration-300" />
                 {/* Asia */}
-                <path d="M 470,50 L 710,50 L 730,190 L 600,240 L 510,180 Z" fill="currentColor" className="hover:text-white/15 transition-colors duration-300" />
+                <path d="M 470,50 L 710,50 L 730,190 L 600,240 L 510,180 Z" fill="currentColor" className="hover:text-zinc-800 transition-colors duration-300" />
                 {/* Oceania */}
-                <path d="M 660,280 L 740,290 L 760,350 L 690,360 Z" fill="currentColor" className="hover:text-white/15 transition-colors duration-300" />
+                <path d="M 660,280 L 740,290 L 760,350 L 690,360 Z" fill="currentColor" className="hover:text-zinc-800 transition-colors duration-300" />
 
                 {/* Draw Glowing Pins for Mapped Countries */}
                 {Object.entries(countryGroups).map(([code, group]) => {
@@ -246,14 +245,14 @@ export default function TasteMapPage() {
                         cx={group.coords.x} 
                         cy={group.coords.y} 
                         r={isHovered ? 16 : 8} 
-                        className={`fill-violet-500/20 transition-all duration-300 ${isHovered ? "animate-pulse" : ""}`} 
+                        className={`fill-[#fbbf24]/10 transition-all duration-300 ${isHovered ? "animate-pulse" : ""}`} 
                       />
                       {/* Pin Center */}
                       <circle 
                         cx={group.coords.x} 
                         cy={group.coords.y} 
                         r={isHovered ? 6 : 4} 
-                        className="fill-amber-400 stroke-black stroke-2" 
+                        className="fill-[#fbbf24] stroke-black stroke-2" 
                       />
                     </g>
                   );
@@ -267,13 +266,13 @@ export default function TasteMapPage() {
                     initial={{ opacity: 0, scale: 0.9, y: 10 }}
                     animate={{ opacity: 1, scale: 1, y: 0 }}
                     exit={{ opacity: 0, scale: 0.9, y: 10 }}
-                    className="absolute bottom-4 left-4 right-4 glass border border-amber-500/20 rounded-xl p-3 bg-black/90 pointer-events-none"
+                    className="absolute bottom-4 left-4 right-4 border border-zinc-800 rounded-none p-3 bg-zinc-950 pointer-events-none font-mono uppercase"
                   >
-                    <div className="flex justify-between items-center mb-1">
-                      <span className="text-xs font-bold text-amber-400">{countryGroups[hoveredCountry].area} ({hoveredCountry})</span>
-                      <span className="text-[10px] text-white/40">{countryGroups[hoveredCountry].artists.length} Artist(s)</span>
+                    <div className="flex justify-between items-center mb-1 text-[10px]">
+                      <span className="font-bold text-[#fbbf24]">{countryGroups[hoveredCountry].area} ({hoveredCountry})</span>
+                      <span className="text-zinc-500">{countryGroups[hoveredCountry].artists.length} Artist(s)</span>
                     </div>
-                    <p className="text-[11px] text-white/80 font-medium leading-relaxed truncate">
+                    <p className="text-[11px] text-white font-bold truncate">
                       {countryGroups[hoveredCountry].artists.join(", ")}
                     </p>
                   </motion.div>
@@ -284,7 +283,7 @@ export default function TasteMapPage() {
 
             {/* Hover help instruction */}
             <div className="mt-4 text-center">
-              <p className="text-[10px] text-white/30 italic">Hover over map markers to inspect the artists and their native regions.</p>
+              <p className="text-[10px] font-mono uppercase tracking-wider text-zinc-550">// HOVER OVER MARKERS TO INSPECT NATIVE REGIONS //</p>
             </div>
 
           </div>

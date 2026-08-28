@@ -41,17 +41,17 @@ export default function GenrePage() {
       <Navbar />
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 pb-24 md:pb-8">
         {/* Back */}
-        <Link href="/" className="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white/70 mb-6 transition-colors">
-          <ArrowLeft size={14} /> Back
+        <Link href="/" className="inline-flex items-center gap-2 text-xs font-mono uppercase tracking-wider text-zinc-550 hover:text-white mb-6 transition-colors">
+          <ArrowLeft size={12} /> Back
         </Link>
 
         {/* Header */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
-          <h1 className="font-outfit text-4xl sm:text-5xl font-bold text-white capitalize mb-3">{genre}</h1>
+        <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} className="mb-8">
+          <h1 className="font-playfair text-4xl sm:text-5xl font-black text-white capitalize mb-3 uppercase">{genre}</h1>
           {data?.moodProfile && (
             <div className="flex gap-2 flex-wrap">
               {data.moodProfile.map((m) => (
-                <span key={m} className="text-xs px-3 py-1 rounded-full glass border border-violet-500/20 text-violet-300">{m}</span>
+                <span key={m} className="text-[9px] font-mono font-bold px-2.5 py-1 border border-zinc-800 bg-zinc-950 text-zinc-400 uppercase tracking-wider rounded-none">{m}</span>
               ))}
             </div>
           )}
@@ -59,8 +59,8 @@ export default function GenrePage() {
 
         {isLoading ? (
           <div className="flex flex-col items-center justify-center py-32 gap-4">
-            <Loader2 size={32} className="text-violet-400 animate-spin" />
-            <p className="text-white/40 text-sm">Researching {genre}…</p>
+            <Loader2 size={24} className="text-[#fbbf24] animate-spin" />
+            <p className="text-xs font-mono uppercase tracking-wider text-zinc-550">// RESEARCHING {genre.toUpperCase()}…</p>
           </div>
         ) : data ? (
           <>
@@ -70,8 +70,10 @@ export default function GenrePage() {
                 <button
                   key={t}
                   onClick={() => setActiveTab(t)}
-                  className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-medium transition-all ${
-                    activeTab === t ? "gradient-primary text-white" : "glass border border-white/10 text-white/50 hover:text-white"
+                  className={`flex-shrink-0 px-4 py-2 rounded-none text-[10px] font-mono font-bold uppercase tracking-wider transition-all cursor-pointer ${
+                    activeTab === t
+                      ? "bg-[#f4f3f6] text-[#0b0a0d] border border-[#f4f3f6]"
+                      : "border border-zinc-800 bg-zinc-950 text-zinc-400 hover:text-white hover:border-zinc-550"
                   }`}
                 >
                   {t}
@@ -89,32 +91,32 @@ export default function GenrePage() {
               >
                 {activeTab === "Overview" && (
                   <div className="space-y-6">
-                    <div className="glass border border-white/8 rounded-2xl p-6">
-                      <p className="text-white/70 leading-relaxed">{data.overview}</p>
+                    <div className="border border-zinc-800 rounded-none p-6 bg-[#111014]/30">
+                      <p className="text-zinc-400 font-mono text-xs uppercase tracking-wider leading-relaxed">{data.overview}</p>
                     </div>
                     <div>
-                      <h3 className="font-outfit font-semibold text-white mb-3 flex items-center gap-2">
-                        <Sparkles size={15} className="text-violet-400" /> Characteristics
+                      <h3 className="font-playfair font-black text-white uppercase text-sm mb-3 flex items-center gap-2">
+                        <Sparkles size={14} className="text-[#fbbf24]" /> Characteristics
                       </h3>
                       <div className="flex flex-wrap gap-2">
                         {data.characteristics.map((c) => (
-                          <span key={c} className="glass border border-white/10 text-sm text-white/60 px-3 py-1.5 rounded-xl">{c}</span>
+                          <span key={c} className="border border-zinc-800 text-[10px] font-mono text-zinc-400 uppercase px-3 py-1.5 rounded-none bg-zinc-950">{c}</span>
                         ))}
                       </div>
                     </div>
                     {data.beginnerPicks && (
                       <div>
-                        <h3 className="font-outfit font-semibold text-white mb-3 flex items-center gap-2">
-                          <Star size={15} className="text-yellow-400" /> Start Here
+                        <h3 className="font-playfair font-black text-white uppercase text-sm mb-3 flex items-center gap-2">
+                          <Star size={14} className="text-[#fbbf24]" /> Start Here
                         </h3>
                         <div className="space-y-3">
                           {data.beginnerPicks.map((p) => (
-                            <div key={p.title} className="glass border border-white/8 rounded-xl p-4">
+                            <div key={p.title} className="border border-zinc-800 rounded-none p-4 bg-[#111014]/25">
                               <div className="flex items-start justify-between gap-2">
                                 <div>
-                                  <div className="font-semibold text-white text-sm">{p.title}</div>
-                                  <div className="text-xs text-white/40">{p.artist}</div>
-                                  <p className="text-xs text-white/50 mt-1">{p.why}</p>
+                                  <div className="font-playfair font-black text-white text-sm uppercase">{p.title}</div>
+                                  <div className="text-[10px] font-mono text-zinc-500 uppercase mt-0.5">{p.artist}</div>
+                                  <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-wide mt-1">{p.why}</p>
                                 </div>
                                 <ListenLinks artist={p.artist} track={p.title} size="sm" />
                               </div>
@@ -131,16 +133,16 @@ export default function GenrePage() {
                     {data.popularArtists.map((a, i) => (
                       <motion.div
                         key={a}
-                        initial={{ opacity: 0, scale: 0.95 }}
+                        initial={{ opacity: 0, scale: 0.97 }}
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ delay: i * 0.04 }}
-                        className="glass border border-white/8 rounded-xl p-4 flex items-center gap-3"
+                        className="border border-zinc-800 rounded-none p-4 flex items-center gap-3 bg-[#111014]/20"
                       >
-                        <div className="w-10 h-10 rounded-full gradient-primary flex items-center justify-center flex-shrink-0">
-                          <Users size={14} className="text-white" />
+                        <div className="w-9 h-9 rounded-none border border-zinc-800 bg-zinc-900 flex items-center justify-center flex-shrink-0">
+                          <Users size={13} className="text-[#fbbf24]" />
                         </div>
                         <div>
-                          <div className="font-semibold text-white text-sm">{a}</div>
+                          <div className="font-playfair font-black text-white text-xs uppercase">{a}</div>
                           <ListenLinks artist={a} size="sm" />
                         </div>
                       </motion.div>
@@ -156,15 +158,15 @@ export default function GenrePage() {
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.06 }}
-                        className="glass border border-white/8 rounded-xl p-4 flex items-center gap-4"
+                        className="border border-zinc-800 rounded-none p-4 flex items-center gap-4 bg-[#111014]/25"
                       >
-                        <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center flex-shrink-0">
-                          <Music2 size={18} className="text-white" />
+                        <div className="w-11 h-11 rounded-none border border-zinc-800 bg-zinc-900 flex items-center justify-center flex-shrink-0">
+                          <Music2 size={14} className="text-[#fbbf24]" />
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="font-semibold text-white">{album.title}</div>
-                          <div className="text-sm text-white/50">{album.artist} · {album.year}</div>
-                          <p className="text-xs text-white/40 mt-0.5">{album.why}</p>
+                        <div className="flex-1 min-w-0 font-mono">
+                          <div className="font-playfair font-black text-white text-sm uppercase truncate">{album.title}</div>
+                          <div className="text-[10px] text-zinc-500 uppercase">{album.artist} · {album.year}</div>
+                          <p className="text-[10px] text-zinc-550 uppercase mt-0.5 leading-relaxed">{album.why}</p>
                         </div>
                         <ListenLinks artist={album.artist} track={album.title} size="sm" />
                       </motion.div>
@@ -180,12 +182,12 @@ export default function GenrePage() {
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ delay: i * 0.08 }}
-                        className="glass border border-white/8 rounded-xl p-4"
+                        className="border border-zinc-800 rounded-none p-4 bg-[#111014]/25"
                       >
                         <div className="flex items-start justify-between gap-3">
                           <div>
-                            <div className="font-semibold text-white">{a.name}</div>
-                            <p className="text-sm text-white/50 mt-1">{a.why}</p>
+                            <div className="font-playfair font-black text-white uppercase text-sm">{a.name}</div>
+                            <p className="text-[10px] font-mono text-zinc-500 uppercase tracking-wide mt-1">{a.why}</p>
                           </div>
                           <ListenLinks artist={a.name} size="sm" />
                         </div>
@@ -200,7 +202,7 @@ export default function GenrePage() {
                       <Link
                         key={g}
                         href={`/genre/${encodeURIComponent(g)}`}
-                        className="glass border border-white/10 rounded-xl px-5 py-3 text-white/70 hover:text-white hover:border-violet-500/30 transition-all capitalize"
+                        className="border border-zinc-800 rounded-none px-5 py-3 text-xs font-mono font-bold text-zinc-400 hover:text-white hover:border-zinc-550 transition-all capitalize uppercase bg-zinc-950"
                       >
                         {g}
                       </Link>
@@ -211,7 +213,7 @@ export default function GenrePage() {
             </AnimatePresence>
           </>
         ) : (
-          <p className="text-white/40 text-center py-20">Could not load genre data.</p>
+          <p className="text-zinc-500 font-mono text-xs uppercase tracking-wider text-center py-20">// COULD NOT LOAD GENRE DATA</p>
         )}
       </div>
       <BottomNav />

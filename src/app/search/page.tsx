@@ -188,25 +188,25 @@ function SearchResults() {
       {q && (
         <div className="space-y-4">
           <div className="flex items-center justify-between flex-wrap gap-2">
-            <h1 className="font-outfit text-2xl sm:text-3xl font-extrabold text-white flex items-center gap-2">
-              <Disc size={22} className="text-amber-400 animate-vinyl" />
-              {type === "emoji" ? "Vibe Interpretation: " : "Results for "}
-              <span className="gradient-text">&ldquo;{q}&rdquo;</span>
+            <h1 className="font-playfair text-2xl sm:text-3xl font-black text-white uppercase flex items-center gap-2">
+              <Disc size={20} className="text-[#fbbf24] animate-vinyl" />
+              {type === "emoji" ? "Vibe Interpretation: " : "Archive: "}
+              <span className="text-[#fbbf24]">&ldquo;{q}&rdquo;</span>
             </h1>
             <div className="flex items-center gap-2">
               <button
                 onClick={() => setShowAdvanced(!showAdvanced)}
-                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
+                className={`flex items-center gap-1.5 px-3 py-1.5 rounded-none text-xs font-mono font-bold uppercase tracking-wider border transition-all cursor-pointer ${
                   showAdvanced 
-                    ? "bg-amber-500/20 text-amber-300 border-amber-500/30" 
-                    : "glass border-white/10 text-zinc-400 hover:text-white"
+                    ? "bg-[#f4f3f6] text-[#0b0a0d] border-[#f4f3f6]" 
+                    : "border-zinc-800 bg-zinc-950 text-zinc-400 hover:text-white"
                 }`}
               >
-                <SlidersHorizontal size={13} />
+                <SlidersHorizontal size={12} />
                 Filters
               </button>
-              <span className="text-xs font-semibold text-zinc-400 bg-white/5 border border-white/10 px-3 py-1.5 rounded-full font-mono">
-                Showing {filteredResults.length} Songs & Artists
+              <span className="text-[10px] font-mono font-bold uppercase tracking-widest text-zinc-500 bg-zinc-950 border border-zinc-850 px-3 py-1.5 rounded-none">
+                {filteredResults.length} Items Found
               </span>
             </div>
           </div>
@@ -220,125 +220,125 @@ function SearchResults() {
                 exit={{ opacity: 0, height: 0 }}
                 className="overflow-hidden"
               >
-                <div className="glass border border-white/8 rounded-2xl p-5 bg-[#121118]/60 grid grid-cols-2 sm:grid-cols-4 gap-4">
+                <div className="border border-zinc-800 rounded-none p-5 bg-[#111014]/90 grid grid-cols-2 sm:grid-cols-4 gap-4">
                   {/* Genre */}
                   <div>
-                    <label className="text-[10px] font-bold text-white/40 uppercase block mb-1.5">Genre</label>
+                    <label className="text-[9px] font-mono font-bold text-zinc-500 uppercase block mb-1.5">Genre</label>
                     <select
                       value={genreFilter}
                       onChange={(e) => setGenreFilter(e.target.value)}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-amber-500/40"
+                      className="w-full bg-zinc-950 border border-zinc-800 rounded-none px-3 py-2 text-xs font-mono text-white outline-none focus:border-zinc-500"
                     >
-                      <option className="bg-[#121118]" value="all">All Genres</option>
-                      <option className="bg-[#121118]" value="pop">Pop</option>
-                      <option className="bg-[#121118]" value="rock">Rock / Indie</option>
-                      <option className="bg-[#121118]" value="jazz">Jazz / Soul</option>
-                      <option className="bg-[#121118]" value="hip hop">Hip Hop</option>
-                      <option className="bg-[#121118]" value="electronic">Electronic / Synth</option>
-                      <option className="bg-[#121118]" value="ambient">Ambient / Chill</option>
+                      <option className="bg-[#111014]" value="all">All Genres</option>
+                      <option className="bg-[#111014]" value="pop">Pop</option>
+                      <option className="bg-[#111014]" value="rock">Rock / Indie</option>
+                      <option className="bg-[#111014]" value="jazz">Jazz / Soul</option>
+                      <option className="bg-[#111014]" value="hip hop">Hip Hop</option>
+                      <option className="bg-[#111014]" value="electronic">Electronic / Synth</option>
+                      <option className="bg-[#111014]" value="ambient">Ambient / Chill</option>
                     </select>
                   </div>
 
                   {/* Mood */}
                   <div>
-                    <label className="text-[10px] font-bold text-white/40 uppercase block mb-1.5">Mood</label>
+                    <label className="text-[9px] font-mono font-bold text-zinc-500 uppercase block mb-1.5">Mood</label>
                     <select
                       value={moodFilter}
                       onChange={(e) => setMoodFilter(e.target.value)}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-amber-500/40"
+                      className="w-full bg-zinc-950 border border-zinc-800 rounded-none px-3 py-2 text-xs font-mono text-white outline-none focus:border-zinc-500"
                     >
-                      <option className="bg-[#121118]" value="all">All Moods</option>
-                      <option className="bg-[#121118]" value="happy">Happy / Upbeat</option>
-                      <option className="bg-[#121118]" value="sad">Sad / Melancholic</option>
-                      <option className="bg-[#121118]" value="chill">Chill / Relaxed</option>
-                      <option className="bg-[#121118]" value="dreamy">Dreamy / Ambient</option>
-                      <option className="bg-[#121118]" value="romantic">Romantic</option>
-                      <option className="bg-[#121118]" value="rebellious">Rebellious</option>
+                      <option className="bg-[#111014]" value="all">All Moods</option>
+                      <option className="bg-[#111014]" value="happy">Happy / Upbeat</option>
+                      <option className="bg-[#111014]" value="sad">Sad / Melancholic</option>
+                      <option className="bg-[#111014]" value="chill">Chill / Relaxed</option>
+                      <option className="bg-[#111014]" value="dreamy">Dreamy / Ambient</option>
+                      <option className="bg-[#111014]" value="romantic">Romantic</option>
+                      <option className="bg-[#111014]" value="rebellious">Rebellious</option>
                     </select>
                   </div>
 
                   {/* Tempo/Energy */}
                   <div>
-                    <label className="text-[10px] font-bold text-white/40 uppercase block mb-1.5">Tempo / Energy</label>
+                    <label className="text-[9px] font-mono font-bold text-zinc-500 uppercase block mb-1.5">Tempo / Energy</label>
                     <select
                       value={tempoFilter}
                       onChange={(e) => setTempoFilter(e.target.value)}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-amber-500/40"
+                      className="w-full bg-zinc-950 border border-zinc-800 rounded-none px-3 py-2 text-xs font-mono text-white outline-none focus:border-zinc-500"
                     >
-                      <option className="bg-[#121118]" value="all">All Tempos</option>
-                      <option className="bg-[#121118]" value="high">High Energy</option>
-                      <option className="bg-[#121118]" value="medium">Medium Vibe</option>
-                      <option className="bg-[#121118]" value="low">Low / Relaxed</option>
+                      <option className="bg-[#111014]" value="all">All Tempos</option>
+                      <option className="bg-[#111014]" value="high">High Energy</option>
+                      <option className="bg-[#111014]" value="medium">Medium Vibe</option>
+                      <option className="bg-[#111014]" value="low">Low / Relaxed</option>
                     </select>
                   </div>
 
                   {/* Language */}
                   <div>
-                    <label className="text-[10px] font-bold text-white/40 uppercase block mb-1.5">Language</label>
+                    <label className="text-[9px] font-mono font-bold text-zinc-500 uppercase block mb-1.5">Language</label>
                     <select
                       value={langFilter}
                       onChange={(e) => setLangFilter(e.target.value)}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-amber-500/40"
+                      className="w-full bg-zinc-950 border border-zinc-800 rounded-none px-3 py-2 text-xs font-mono text-white outline-none focus:border-zinc-500"
                     >
-                      <option className="bg-[#121118]" value="all">All Languages</option>
-                      <option className="bg-[#121118]" value="english">English</option>
-                      <option className="bg-[#121118]" value="hindi">Hindi</option>
-                      <option className="bg-[#121118]" value="punjabi">Punjabi</option>
-                      <option className="bg-[#121118]" value="spanish">Spanish</option>
-                      <option className="bg-[#121118]" value="korean">Korean</option>
-                      <option className="bg-[#121118]" value="japanese">Japanese</option>
+                      <option className="bg-[#111014]" value="all">All Languages</option>
+                      <option className="bg-[#111014]" value="english">English</option>
+                      <option className="bg-[#111014]" value="hindi">Hindi</option>
+                      <option className="bg-[#111014]" value="punjabi">Punjabi</option>
+                      <option className="bg-[#111014]" value="spanish">Spanish</option>
+                      <option className="bg-[#111014]" value="korean">Korean</option>
+                      <option className="bg-[#111014]" value="japanese">Japanese</option>
                     </select>
                   </div>
 
                   {/* Country */}
                   <div>
-                    <label className="text-[10px] font-bold text-white/40 uppercase block mb-1.5">Country / Region</label>
+                    <label className="text-[9px] font-mono font-bold text-zinc-500 uppercase block mb-1.5">Country / Region</label>
                     <select
                       value={countryFilter}
                       onChange={(e) => setCountryFilter(e.target.value)}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-amber-500/40"
+                      className="w-full bg-zinc-950 border border-zinc-800 rounded-none px-3 py-2 text-xs font-mono text-white outline-none focus:border-zinc-500"
                     >
-                      <option className="bg-[#121118]" value="all">All Countries</option>
-                      <option className="bg-[#121118]" value="india">India</option>
-                      <option className="bg-[#121118]" value="united kingdom">United Kingdom</option>
-                      <option className="bg-[#121118]" value="united states">United States</option>
-                      <option className="bg-[#121118]" value="france">France</option>
-                      <option className="bg-[#121118]" value="korea">Korea</option>
-                      <option className="bg-[#121118]" value="japan">Japan</option>
-                      <option className="bg-[#121118]" value="brazil">Brazil</option>
+                      <option className="bg-[#111014]" value="all">All Countries</option>
+                      <option className="bg-[#111014]" value="india">India</option>
+                      <option className="bg-[#111014]" value="united kingdom">United Kingdom</option>
+                      <option className="bg-[#111014]" value="united states">United States</option>
+                      <option className="bg-[#111014]" value="france">France</option>
+                      <option className="bg-[#111014]" value="korea">Korea</option>
+                      <option className="bg-[#111014]" value="japan">Japan</option>
+                      <option className="bg-[#111014]" value="brazil">Brazil</option>
                     </select>
                   </div>
 
                   {/* Decade */}
                   <div>
-                    <label className="text-[10px] font-bold text-white/40 uppercase block mb-1.5">Decade</label>
+                    <label className="text-[9px] font-mono font-bold text-zinc-500 uppercase block mb-1.5">Decade</label>
                     <select
                       value={decadeFilter}
                       onChange={(e) => setDecadeFilter(e.target.value)}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-amber-500/40"
+                      className="w-full bg-zinc-950 border border-zinc-800 rounded-none px-3 py-2 text-xs font-mono text-white outline-none focus:border-zinc-500"
                     >
-                      <option className="bg-[#121118]" value="all">All Decades</option>
-                      <option className="bg-[#121118]" value="70s">1970s</option>
-                      <option className="bg-[#121118]" value="80s">1980s</option>
-                      <option className="bg-[#121118]" value="90s">1990s</option>
-                      <option className="bg-[#121118]" value="00s">2000s</option>
-                      <option className="bg-[#121118]" value="10s">2010s</option>
-                      <option className="bg-[#121118]" value="20s">2020s</option>
+                      <option className="bg-[#111014]" value="all">All Decades</option>
+                      <option className="bg-[#111014]" value="70s">1970s</option>
+                      <option className="bg-[#111014]" value="80s">1980s</option>
+                      <option className="bg-[#111014]" value="90s">1990s</option>
+                      <option className="bg-[#111014]" value="00s">2000s</option>
+                      <option className="bg-[#111014]" value="10s">2010s</option>
+                      <option className="bg-[#111014]" value="20s">2020s</option>
                     </select>
                   </div>
 
                   {/* Popularity */}
                   <div>
-                    <label className="text-[10px] font-bold text-white/40 uppercase block mb-1.5">Popularity</label>
+                    <label className="text-[9px] font-mono font-bold text-zinc-500 uppercase block mb-1.5">Popularity</label>
                     <select
                       value={popFilter}
                       onChange={(e) => setPopFilter(e.target.value)}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-3 py-2 text-xs text-white outline-none focus:border-amber-500/40"
+                      className="w-full bg-zinc-950 border border-zinc-800 rounded-none px-3 py-2 text-xs font-mono text-white outline-none focus:border-zinc-500"
                     >
-                      <option className="bg-[#121118]" value="all">All Popularity</option>
-                      <option className="bg-[#121118]" value="high">Mainstream (75+)</option>
-                      <option className="bg-[#121118]" value="medium">Mid-tier (40-74)</option>
-                      <option className="bg-[#121118]" value="low">Indie / Obscure (&lt;40)</option>
+                      <option className="bg-[#111014]" value="all">All Popularity</option>
+                      <option className="bg-[#111014]" value="high">Mainstream (75+)</option>
+                      <option className="bg-[#111014]" value="medium">Mid-tier (40-74)</option>
+                      <option className="bg-[#111014]" value="low">Indie / Obscure (&lt;40)</option>
                     </select>
                   </div>
 
@@ -346,7 +346,7 @@ function SearchResults() {
                   <div className="flex items-end">
                     <button
                       onClick={resetAllFilters}
-                      className="w-full bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl py-2 text-xs font-semibold transition-colors"
+                      className="w-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-white rounded-none py-2 text-xs font-mono font-bold uppercase tracking-wider transition-colors cursor-pointer"
                     >
                       Reset Filters
                     </button>
@@ -359,32 +359,32 @@ function SearchResults() {
           {interpretation && (
             <div className="space-y-2">
               <motion.h3
-                initial={{ letterSpacing: "0.25em", opacity: 0 }}
-                animate={{ letterSpacing: "0.12em", opacity: 1 }}
-                transition={{ duration: 1.0, ease: "easeOut" }}
-                className="font-outfit text-xs font-bold text-amber-400 uppercase tracking-widest flex items-center gap-1.5 px-1"
+                initial={{ letterSpacing: "0.15em", opacity: 0 }}
+                animate={{ letterSpacing: "0.08em", opacity: 1 }}
+                transition={{ duration: 0.6 }}
+                className="font-mono text-[10px] font-bold text-[#fbbf24] uppercase tracking-widest flex items-center gap-1.5 px-1"
               >
-                <Sparkles size={12} className="text-amber-400" />
-                AI Curator Vibe Silhouette
+                <Sparkles size={12} className="text-[#fbbf24]" />
+                // AI CURATOR VIBE SILHOUETTE
               </motion.h3>
               <motion.div
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="flex items-start gap-2.5 p-4 glass rounded-2xl border border-amber-500/25 bg-amber-500/5"
+                transition={{ duration: 0.4 }}
+                className="flex items-start gap-2.5 p-4 border border-zinc-850 bg-[#111014]/90 rounded-none"
               >
-                <p className="text-xs sm:text-sm text-zinc-200 leading-relaxed font-medium">{interpretation}</p>
+                <p className="text-xs font-mono text-zinc-300 leading-relaxed">{interpretation}</p>
               </motion.div>
             </div>
           )}
 
           {/* Did You Mean Suggestion indicator */}
           {results.length > 0 && (results as any).didYouMean && (
-            <div className="text-xs text-amber-300 font-semibold px-4 flex items-center gap-1.5">
+            <div className="text-xs font-mono text-[#fbbf24] uppercase tracking-wider px-1 flex items-center gap-1.5">
               <span>Did you mean:</span>
               <a
                 href={`/search?q=${encodeURIComponent((results as any).didYouMean)}&type=${type}`}
-                className="underline hover:text-amber-400 cursor-pointer"
+                className="underline hover:text-white cursor-pointer"
               >
                 {(results as any).didYouMean}
               </a>
@@ -396,22 +396,22 @@ function SearchResults() {
 
       {isLoading ? (
         <div className="space-y-6">
-          <div className="flex items-center gap-2 text-zinc-400 text-xs font-semibold animate-pulse">
-            <Loader2 size={14} className="animate-spin text-amber-400" />
-            <span>Scanning 100M+ global catalog & AI models...</span>
+          <div className="flex items-center gap-2 text-zinc-500 text-xs font-mono uppercase tracking-wider animate-pulse">
+            <Loader2 size={14} className="animate-spin text-[#fbbf24]" />
+            <span>Scanning 100M+ global catalog indexes...</span>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
             {[1, 2, 3, 4, 5, 6, 7, 8].map((n) => (
-              <div key={n} className="glass rounded-2xl p-4 border border-white/5 bg-[#121118]/40 h-44 flex flex-col justify-between animate-pulse">
+              <div key={n} className="border border-zinc-900 rounded-none p-4 bg-[#111014]/20 h-44 flex flex-col justify-between animate-pulse">
                 <div className="flex gap-3">
-                  <div className="w-20 h-20 rounded-xl bg-white/5 flex-shrink-0" />
+                  <div className="w-20 h-20 rounded-none bg-zinc-900 border border-zinc-850 flex-shrink-0" />
                   <div className="flex-1 space-y-2.5 pt-1">
-                    <div className="h-4 bg-white/10 rounded w-3/4" />
-                    <div className="h-3 bg-white/5 rounded w-1/2" />
-                    <div className="h-3 bg-white/5 rounded w-2/3" />
+                    <div className="h-4 bg-zinc-850 rounded-none w-3/4" />
+                    <div className="h-3 bg-zinc-900 rounded-none w-1/2" />
+                    <div className="h-3 bg-zinc-900 rounded-none w-2/3" />
                   </div>
                 </div>
-                <div className="h-10 bg-white/[0.02] rounded-xl w-full" />
+                <div className="h-8 bg-zinc-900 rounded-none w-full" />
               </div>
             ))}
           </div>
@@ -435,23 +435,23 @@ function SearchResults() {
             <button
               onClick={loadMoreSongs}
               disabled={loadingMore}
-              className="glass border border-white/10 hover:border-amber-500/40 px-8 py-3 rounded-2xl text-xs font-bold uppercase tracking-wider text-zinc-200 hover:text-white transition-all flex items-center gap-2 hover:scale-105"
+              className="border border-zinc-800 hover:border-zinc-550 px-8 py-3.5 rounded-none text-xs font-mono font-bold uppercase tracking-wider text-zinc-350 hover:text-white transition-all flex items-center gap-2 bg-[#111014] cursor-pointer"
             >
-              {loadingMore ? <Loader2 size={15} className="animate-spin text-amber-400" /> : <Disc size={15} className="text-amber-400" />}
-              {loadingMore ? "Searching Catalog…" : "Load More Songs from Global Catalog"}
+              {loadingMore ? <Loader2 size={14} className="animate-spin text-[#fbbf24]" /> : <Disc size={14} className="text-[#fbbf24]" />}
+              {loadingMore ? "Searching Catalog…" : "Load More Songs from Archive"}
             </button>
-            <p className="text-[10px] text-zinc-500 mt-2">Accessing Last.fm & iTunes 100M+ track database</p>
+            <p className="text-[9px] font-mono text-zinc-650 uppercase tracking-widest mt-2">// ACCESSING 100M+ TRACK DATABASE</p>
           </div>
         </div>
       ) : q && !isLoading ? (
-        <div className="text-center py-24 px-4 glass border border-white/5 rounded-3xl max-w-xl mx-auto space-y-5 bg-[#121118]/60">
-          <div className="w-16 h-16 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mx-auto text-2xl">
-            🔍
+        <div className="text-center py-20 px-6 border border-zinc-800 rounded-none max-w-xl mx-auto space-y-5 bg-[#111014]/50">
+          <div className="w-12 h-12 rounded-none border border-zinc-800 bg-zinc-900 flex items-center justify-center mx-auto text-xl font-mono text-[#fbbf24]">
+            [?]
           </div>
           <div className="space-y-2">
-            <h3 className="font-outfit text-xl font-bold text-white">No musical matches found</h3>
-            <p className="text-sm text-zinc-400 max-w-md mx-auto leading-relaxed">
-              We couldn't find matches for &ldquo;{q}&rdquo;. Try widening your query using different keywords or exploring genre tags.
+            <h3 className="font-playfair text-xl font-black uppercase text-white">No musical matches found</h3>
+            <p className="text-xs font-mono text-zinc-500 max-w-md mx-auto leading-relaxed uppercase">
+              // We couldn't find matches for this query. Try widening keywords or checking spelling.
             </p>
           </div>
           <div className="flex flex-col sm:flex-row gap-2 justify-center pt-2">
@@ -464,13 +464,13 @@ function SearchResults() {
                   searchInput.focus();
                 }
               }}
-              className="text-xs px-4 py-2 rounded-xl glass border border-white/10 text-zinc-300 hover:text-white hover:border-amber-500/30 transition-all font-medium"
+              className="text-[10px] font-mono font-bold uppercase tracking-wider px-4 py-2 border border-zinc-800 text-zinc-300 hover:text-white hover:border-zinc-600 bg-zinc-900 transition-all rounded-none cursor-pointer"
             >
               Try: "soulful Hindi acoustic"
             </button>
             <button
               onClick={() => resetAllFilters()}
-              className="text-xs px-4 py-2 rounded-xl gradient-gold text-zinc-950 font-bold hover:scale-105 transition-all"
+              className="text-[10px] font-mono font-bold uppercase tracking-wider px-4 py-2 bg-[#f4f3f6] text-[#0b0a0d] hover:bg-zinc-200 transition-all rounded-none cursor-pointer"
             >
               Clear Active Filters
             </button>

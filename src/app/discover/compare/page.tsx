@@ -53,41 +53,41 @@ export default function CompareArtistsPage() {
         
         {/* Header */}
         <div className="mb-8 text-center sm:text-left">
-          <h1 className="font-outfit text-3xl font-bold text-white flex items-center justify-center sm:justify-start gap-2">
-            <Scale className="text-amber-400" /> Compare Artists
+          <h1 className="font-playfair text-3xl font-black uppercase text-white flex items-center justify-center sm:justify-start gap-2">
+            <Scale className="text-[#fbbf24]" size={24} /> Compare Artists
           </h1>
-          <p className="text-white/40 mt-1">Cross-examine the sounds, stats, and styles of two musical minds</p>
+          <p className="text-xs font-mono uppercase tracking-wider text-zinc-550 mt-1">// CROSS-EXAMINE THE SOUNDS, METRICS, AND STYLES OF TWO MUSICAL MINDS</p>
         </div>
 
         {/* Inputs Form */}
-        <form onSubmit={handleCompare} className="glass border border-white/10 rounded-3xl p-6 bg-[#121118]/80 mb-8">
+        <form onSubmit={handleCompare} className="border border-zinc-800 rounded-none p-6 bg-[#111014]/45 mb-8">
           <div className="grid grid-cols-1 md:grid-cols-11 gap-4 items-center">
             
             <div className="md:col-span-5">
-              <label className="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-1.5">First Artist</label>
+              <label className="block text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-widest mb-1.5">// FIRST ARTIST</label>
               <input
                 type="text"
                 required
                 placeholder="e.g. M83"
                 value={artist1}
                 onChange={(e) => setArtist1(e.target.value)}
-                className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500/50"
+                className="w-full bg-zinc-950 border border-zinc-800 rounded-none px-4 py-2.5 text-xs font-mono text-white placeholder-zinc-700 outline-none focus:border-zinc-500"
               />
             </div>
 
-            <div className="md:col-span-1 text-center font-outfit text-white/40 font-bold text-sm">
+            <div className="md:col-span-1 text-center font-mono text-[#fbbf24] font-bold text-sm">
               VS
             </div>
 
             <div className="md:col-span-5">
-              <label className="block text-xs font-bold text-zinc-400 uppercase tracking-wider mb-1.5">Second Artist</label>
+              <label className="block text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-widest mb-1.5">// SECOND ARTIST</label>
               <input
                 type="text"
                 required
                 placeholder="e.g. The Weeknd"
                 value={artist2}
                 onChange={(e) => setArtist2(e.target.value)}
-                className="w-full bg-white/[0.03] border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-amber-500/50"
+                className="w-full bg-zinc-950 border border-zinc-800 rounded-none px-4 py-2.5 text-xs font-mono text-white placeholder-zinc-700 outline-none focus:border-zinc-500"
               />
             </div>
 
@@ -95,15 +95,15 @@ export default function CompareArtistsPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full inline-flex items-center justify-center gap-2 gradient-primary py-3 rounded-xl text-sm font-semibold text-white hover:opacity-95 transition-all disabled:opacity-50"
+                className="w-full inline-flex items-center justify-center gap-2 bg-[#f4f3f6] text-[#0b0a0d] hover:bg-zinc-200 py-3.5 rounded-none text-xs font-mono font-bold uppercase tracking-wider transition-all disabled:opacity-50 cursor-pointer"
               >
                 {loading ? (
                   <>
-                    <Loader2 size={16} className="animate-spin" /> Cross-Referencing...
+                    <Loader2 size={13} className="animate-spin text-[#0b0a0d]" /> Cross-Referencing...
                   </>
                 ) : (
                   <>
-                    <Scale size={16} /> Compare Soundscapes
+                    <Scale size={13} /> Compare Soundscapes
                   </>
                 )}
               </button>
@@ -115,22 +115,22 @@ export default function CompareArtistsPage() {
         {/* Loading / Error States */}
         {loading && (
           <div className="text-center py-20">
-            <Loader2 size={36} className="text-amber-400 animate-spin mx-auto mb-3" />
-            <p className="text-sm text-white/50">Retrieving listener engagement, acoustic features, and compiling AI summary...</p>
+            <Loader2 size={24} className="text-[#fbbf24] animate-spin mx-auto mb-3" />
+            <p className="text-xs font-mono uppercase tracking-wider text-zinc-550">// CALCULATING ACOUSTIC FEATURES & COMPILING CROSSOVER SYNTHESIS...</p>
           </div>
         )}
 
         {error && (
-          <div className="glass border border-red-500/20 bg-red-500/5 rounded-2xl p-6 text-center text-red-200 text-sm flex flex-col items-center gap-2 max-w-md mx-auto">
-            <AlertCircle size={24} className="text-red-400" />
+          <div className="border border-rose-900 bg-rose-950/20 rounded-none p-6 text-center text-rose-200 text-xs font-mono uppercase flex flex-col items-center gap-2 max-w-md mx-auto">
+            <AlertCircle size={20} className="text-rose-400" />
             {error}
           </div>
         )}
 
         {!loading && !result && !error && (
-          <div className="glass border border-white/5 rounded-2xl p-12 text-center text-white/30 text-sm bg-white/[0.01] max-w-xl mx-auto">
-            <Scale size={40} className="mx-auto text-white/10 mb-4" />
-            Enter two artists to compare their global reach, genres, mood signatures, and read an AI-curated crossover thesis.
+          <div className="border border-zinc-850 rounded-none p-12 text-center text-zinc-500 font-mono text-xs uppercase tracking-wider bg-zinc-950/20 max-w-xl mx-auto">
+            <Scale size={32} className="mx-auto text-zinc-800 mb-4" />
+            // ENTER TWO ARTISTS TO DECONSTRUCT GENRE OVERLAPS, REGIONAL STATS & AI COMPARATIVE THESES //
           </div>
         )}
 
@@ -146,25 +146,25 @@ export default function CompareArtistsPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               
               {/* Artist 1 Card */}
-              <div className="glass border border-white/10 rounded-3xl p-6 bg-gradient-to-br from-amber-500/5 to-transparent">
-                <span className="text-[10px] uppercase font-bold tracking-widest text-amber-400">Artist A</span>
-                <h2 className="font-outfit text-2xl font-extrabold text-white mt-1 mb-4">{result.artist1.name}</h2>
+              <div className="border border-zinc-800 rounded-none p-6 bg-[#111014]/25">
+                <span className="text-[9px] font-mono uppercase font-bold tracking-widest text-[#fbbf24]">// ARTIST A</span>
+                <h2 className="font-playfair text-2xl font-black text-white uppercase mt-1 mb-4">{result.artist1.name}</h2>
                 
                 {/* Stats */}
                 <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="bg-white/[0.02] border border-white/5 rounded-xl p-3.5">
-                    <div className="flex items-center gap-1.5 text-xs text-white/40 mb-1">
-                      <Users size={12} /> Listeners
+                  <div className="bg-zinc-950 border border-zinc-850 rounded-none p-3.5">
+                    <div className="flex items-center gap-1.5 text-[9px] font-mono text-zinc-500 uppercase mb-1">
+                      <Users size={11} /> Listeners
                     </div>
-                    <span className="text-base font-extrabold text-white">
+                    <span className="text-sm font-mono font-bold text-white">
                       {result.artist1Stats.listeners ? formatNumber(result.artist1Stats.listeners) : "N/A"}
                     </span>
                   </div>
-                  <div className="bg-white/[0.02] border border-white/5 rounded-xl p-3.5">
-                    <div className="flex items-center gap-1.5 text-xs text-white/40 mb-1">
-                      <Disc size={12} /> Playcount
+                  <div className="bg-zinc-950 border border-zinc-850 rounded-none p-3.5">
+                    <div className="flex items-center gap-1.5 text-[9px] font-mono text-zinc-500 uppercase mb-1">
+                      <Disc size={11} /> Playcount
                     </div>
-                    <span className="text-base font-extrabold text-white">
+                    <span className="text-sm font-mono font-bold text-white">
                       {result.artist1Stats.playcount ? formatNumber(result.artist1Stats.playcount) : "N/A"}
                     </span>
                   </div>
@@ -173,34 +173,34 @@ export default function CompareArtistsPage() {
                 {/* Genres & Influences */}
                 <div className="space-y-4">
                   <div>
-                    <span className="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1.5">Primary Genres</span>
+                    <span className="block text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Primary Genres</span>
                     <div className="flex flex-wrap gap-1.5">
                       {result.artist1.genres.map((g: string) => (
-                        <span key={g} className="text-xs px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-white/80">{g}</span>
+                        <span key={g} className="text-xs font-mono px-2.5 py-1 rounded-none border border-zinc-850 bg-zinc-950 text-zinc-400 uppercase">{g}</span>
                       ))}
                     </div>
                   </div>
                   <div>
-                    <span className="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1.5">Influences / Contemporaries</span>
+                    <span className="block text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Influences / Contemporaries</span>
                     <div className="flex flex-wrap gap-1.5">
                       {result.artist1.influences.map((inf: string) => (
-                        <span key={inf} className="text-xs px-2.5 py-1 rounded-md bg-amber-400/10 border border-amber-400/20 text-amber-300">{inf}</span>
+                        <span key={inf} className="text-xs font-mono px-2.5 py-1 rounded-none border border-zinc-800 bg-zinc-900 text-zinc-300 uppercase">{inf}</span>
                       ))}
                     </div>
                   </div>
                 </div>
 
                 {/* Mood Profiles */}
-                <div className="mt-6 space-y-3 pt-6 border-t border-white/5">
-                  <span className="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Mood Silhouette</span>
+                <div className="mt-6 space-y-3 pt-6 border-t border-zinc-850">
+                  <span className="block text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-widest">Mood Silhouette</span>
                   {Object.entries(result.artist1.moodProfile).map(([mood, val]) => (
-                    <div key={mood} className="space-y-1">
+                    <div key={mood} className="space-y-1 font-mono uppercase text-[10px]">
                       <div className="flex justify-between text-xs">
-                        <span className="text-white/60 capitalize">{mood}</span>
-                        <span className="text-white/90 font-medium">{val as number}%</span>
+                        <span className="text-zinc-500">{mood}</span>
+                        <span className="text-white font-bold">{val as number}%</span>
                       </div>
-                      <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                        <div className="h-full bg-amber-400 rounded-full" style={{ width: `${val}%` }} />
+                      <div className="w-full h-2.5 bg-zinc-900 border border-zinc-850 rounded-none overflow-hidden">
+                        <div className="h-full bg-[#fbbf24] rounded-none" style={{ width: `${val}%` }} />
                       </div>
                     </div>
                   ))}
@@ -208,25 +208,25 @@ export default function CompareArtistsPage() {
               </div>
 
               {/* Artist 2 Card */}
-              <div className="glass border border-white/10 rounded-3xl p-6 bg-gradient-to-br from-indigo-500/5 to-transparent">
-                <span className="text-[10px] uppercase font-bold tracking-widest text-indigo-400">Artist B</span>
-                <h2 className="font-outfit text-2xl font-extrabold text-white mt-1 mb-4">{result.artist2.name}</h2>
+              <div className="border border-zinc-800 rounded-none p-6 bg-[#111014]/25">
+                <span className="text-[9px] font-mono uppercase font-bold tracking-widest text-[#fbbf24]">// ARTIST B</span>
+                <h2 className="font-playfair text-2xl font-black text-white uppercase mt-1 mb-4">{result.artist2.name}</h2>
                 
                 {/* Stats */}
                 <div className="grid grid-cols-2 gap-4 mb-6">
-                  <div className="bg-white/[0.02] border border-white/5 rounded-xl p-3.5">
-                    <div className="flex items-center gap-1.5 text-xs text-white/40 mb-1">
-                      <Users size={12} /> Listeners
+                  <div className="bg-zinc-950 border border-zinc-850 rounded-none p-3.5">
+                    <div className="flex items-center gap-1.5 text-[9px] font-mono text-zinc-500 uppercase mb-1">
+                      <Users size={11} /> Listeners
                     </div>
-                    <span className="text-base font-extrabold text-white">
+                    <span className="text-sm font-mono font-bold text-white">
                       {result.artist2Stats.listeners ? formatNumber(result.artist2Stats.listeners) : "N/A"}
                     </span>
                   </div>
-                  <div className="bg-white/[0.02] border border-white/5 rounded-xl p-3.5">
-                    <div className="flex items-center gap-1.5 text-xs text-white/40 mb-1">
-                      <Disc size={12} /> Playcount
+                  <div className="bg-zinc-950 border border-zinc-850 rounded-none p-3.5">
+                    <div className="flex items-center gap-1.5 text-[9px] font-mono text-zinc-500 uppercase mb-1">
+                      <Disc size={11} /> Playcount
                     </div>
-                    <span className="text-base font-extrabold text-white">
+                    <span className="text-sm font-mono font-bold text-white">
                       {result.artist2Stats.playcount ? formatNumber(result.artist2Stats.playcount) : "N/A"}
                     </span>
                   </div>
@@ -235,34 +235,34 @@ export default function CompareArtistsPage() {
                 {/* Genres & Influences */}
                 <div className="space-y-4">
                   <div>
-                    <span className="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1.5">Primary Genres</span>
+                    <span className="block text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Primary Genres</span>
                     <div className="flex flex-wrap gap-1.5">
                       {result.artist2.genres.map((g: string) => (
-                        <span key={g} className="text-xs px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-white/80">{g}</span>
+                        <span key={g} className="text-xs font-mono px-2.5 py-1 rounded-none border border-zinc-850 bg-zinc-950 text-zinc-400 uppercase">{g}</span>
                       ))}
                     </div>
                   </div>
                   <div>
-                    <span className="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider mb-1.5">Influences / Contemporaries</span>
+                    <span className="block text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-widest mb-1.5">Influences / Contemporaries</span>
                     <div className="flex flex-wrap gap-1.5">
                       {result.artist2.influences.map((inf: string) => (
-                        <span key={inf} className="text-xs px-2.5 py-1 rounded-md bg-indigo-400/10 border border-indigo-400/20 text-indigo-300">{inf}</span>
+                        <span key={inf} className="text-xs font-mono px-2.5 py-1 rounded-none border border-zinc-800 bg-zinc-900 text-zinc-300 uppercase">{inf}</span>
                       ))}
                     </div>
                   </div>
                 </div>
 
                 {/* Mood Profiles */}
-                <div className="mt-6 space-y-3 pt-6 border-t border-white/5">
-                  <span className="block text-[10px] font-bold text-zinc-400 uppercase tracking-wider">Mood Silhouette</span>
+                <div className="mt-6 space-y-3 pt-6 border-t border-zinc-850">
+                  <span className="block text-[9px] font-mono font-bold text-zinc-500 uppercase tracking-widest">Mood Silhouette</span>
                   {Object.entries(result.artist2.moodProfile).map(([mood, val]) => (
-                    <div key={mood} className="space-y-1">
+                    <div key={mood} className="space-y-1 font-mono uppercase text-[10px]">
                       <div className="flex justify-between text-xs">
-                        <span className="text-white/60 capitalize">{mood}</span>
-                        <span className="text-white/90 font-medium">{val as number}%</span>
+                        <span className="text-zinc-500">{mood}</span>
+                        <span className="text-white font-bold">{val as number}%</span>
                       </div>
-                      <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                        <div className="h-full bg-indigo-400 rounded-full" style={{ width: `${val}%` }} />
+                      <div className="w-full h-2.5 bg-zinc-900 border border-zinc-850 rounded-none overflow-hidden">
+                        <div className="h-full bg-[#fbbf24] rounded-none" style={{ width: `${val}%` }} />
                       </div>
                     </div>
                   ))}
@@ -272,42 +272,42 @@ export default function CompareArtistsPage() {
             </div>
 
             {/* AI Comparison Critical Summary */}
-            <div className="glass border border-white/10 rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-amber-500/5 to-indigo-500/5 relative overflow-hidden">
-              <div className="flex items-center gap-2 mb-4 text-amber-400">
-                <Sparkles size={18} />
+            <div className="border border-zinc-800 rounded-none p-6 sm:p-8 bg-zinc-950 relative overflow-hidden">
+              <div className="flex items-center gap-2 mb-4 text-[#fbbf24]">
+                <Sparkles size={16} />
                 <motion.h3
-                  initial={{ letterSpacing: "0.25em", opacity: 0 }}
-                  animate={{ letterSpacing: "0.12em", opacity: 1 }}
-                  transition={{ duration: 1.0, ease: "easeOut" }}
-                  className="font-outfit font-bold text-lg text-white uppercase tracking-widest"
+                  initial={{ letterSpacing: "0.15em", opacity: 0 }}
+                  animate={{ letterSpacing: "0.08em", opacity: 1 }}
+                  transition={{ duration: 0.6 }}
+                  className="font-mono font-bold text-xs uppercase tracking-widest text-[#fbbf24]"
                 >
-                  Editorial Synthesis
+                  // EDITORIAL SYNTHESIS
                 </motion.h3>
               </div>
-              <p className="text-zinc-200 text-sm leading-relaxed whitespace-pre-line">
+              <p className="text-zinc-300 font-mono text-xs uppercase tracking-wider leading-relaxed whitespace-pre-line">
                 {result.comparisonSummary}
               </p>
             </div>
 
             {/* Hypothetical Collaboration Concept */}
-            <div className="glass border border-white/10 rounded-3xl p-6 sm:p-8 bg-[#121118]/90">
+            <div className="border border-zinc-800 rounded-none p-6 sm:p-8 bg-[#111014]/40">
               <motion.span
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6 }}
-                className="text-[10px] uppercase font-extrabold tracking-widest text-amber-400 block mb-1"
+                className="text-[9px] font-mono uppercase font-bold tracking-widest text-[#fbbf24] block mb-1"
               >
-                Hypothetical Crossover
+                // HYPOTHETICAL CROSSOVER
               </motion.span>
               <motion.h3
-                initial={{ letterSpacing: "0.25em", opacity: 0 }}
-                animate={{ letterSpacing: "0.1em", opacity: 1 }}
-                transition={{ duration: 1.2, ease: "easeOut" }}
-                className="font-outfit text-xl font-black text-white tracking-widest uppercase mb-2.5"
+                initial={{ letterSpacing: "0.15em", opacity: 0 }}
+                animate={{ letterSpacing: "0.08em", opacity: 1 }}
+                transition={{ duration: 0.8 }}
+                className="font-playfair text-xl font-black text-white tracking-widest uppercase mb-2.5"
               >
-                "{result.collaborationConcept.title}"
+                &ldquo;{result.collaborationConcept.title}&rdquo;
               </motion.h3>
-              <p className="text-zinc-300 text-sm leading-relaxed">
+              <p className="text-zinc-400 font-mono text-xs uppercase tracking-wider leading-relaxed">
                 {result.collaborationConcept.description}
               </p>
             </div>

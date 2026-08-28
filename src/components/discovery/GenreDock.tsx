@@ -1,7 +1,4 @@
 "use client";
-
-import { useMotionValue, useSpring, useTransform, motion } from "motion/react";
-import { useRef } from "react";
 import { useRouter } from "next/navigation";
 
 export interface GenreItem {
@@ -29,76 +26,25 @@ const GENRES: GenreItem[] = [
 
 export default function GenreDock() {
   const router = useRouter();
-  const mouseX = useMotionValue(Infinity);
 
   return (
-    <div className="flex flex-col items-center justify-center gap-4 py-8">
-      <div className="text-center mb-2">
-        <h3 className="font-outfit text-sm font-semibold uppercase tracking-wider text-zinc-400">
-          🎵 Quick-Select Genre Dock
-        </h3>
-        <p className="text-xs text-zinc-500 mt-1">Hover to magnify, click to explore deep dives</p>
-      </div>
-
-      <motion.div
-        onMouseMove={(e) => mouseX.set(e.pageX)}
-        onMouseLeave={() => mouseX.set(Infinity)}
-        className="mx-auto flex h-24 items-end gap-3 rounded-3xl border border-white/10 bg-zinc-950/40 px-6 pb-4 shadow-2xl backdrop-blur-md w-fit max-w-full overflow-x-auto hide-scrollbar"
-      >
+    <div className="w-full py-6">
+      <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-3">
         {GENRES.map((genre) => (
-          <DockIcon
+          <button
             key={genre.name}
-            mouseX={mouseX}
-            genre={genre}
             onClick={() => router.push(`/genre/${encodeURIComponent(genre.slug)}`)}
-          />
+            className="flex flex-col items-center justify-center p-5 border border-zinc-800 bg-[#111014]/30 hover:bg-[#f4f3f6] hover:text-[#0b0a0d] hover:border-[#f4f3f6] transition-all duration-200 cursor-pointer group rounded-none"
+          >
+            <span className="text-3xl mb-2 select-none group-hover:scale-105 transition-transform duration-200">
+              {genre.emoji}
+            </span>
+            <span className="text-[9px] font-mono font-bold uppercase tracking-wider text-center block">
+              {genre.name}
+            </span>
+          </button>
         ))}
-      </motion.div>
+      </div>
     </div>
-  );
-}
-
-interface DockIconProps {
-  mouseX: any;
-  genre: GenreItem;
-  onClick: () => void;
-}
-
-function DockIcon({ mouseX, genre, onClick }: DockIconProps) {
-  const ref = useRef<HTMLButtonElement>(null);
-
-  const distance = useTransform(mouseX, (val: number) => {
-    const bounds = ref.current?.getBoundingClientRect() ?? { x: 0, width: 0 };
-    return val - bounds.x - bounds.width / 2;
-  });
-
-  const widthTransform = useTransform(distance, [-150, 0, 150], [56, 92, 56]);
-  const heightTransform = useTransform(distance, [-150, 0, 150], [56, 92, 56]);
-
-  const widthSpring = useSpring(widthTransform, {
-    mass: 0.1,
-    stiffness: 150,
-    damping: 12,
-  });
-  const heightSpring = useSpring(heightTransform, {
-    mass: 0.1,
-    stiffness: 150,
-    damping: 12,
-  });
-
-  return (
-    <motion.button
-      ref={ref}
-      style={{ width: widthSpring, height: heightSpring }}
-      onClick={onClick}
-      className={`group relative flex flex-col items-center justify-center rounded-2xl bg-gradient-to-br ${genre.color} border ${genre.border} shadow-lg cursor-pointer transition-colors duration-300 shrink-0`}
-    >
-      <span className="text-3xl select-none group-hover:scale-110 transition-transform duration-200">
-        {genre.emoji}
-      </span>
-      <span className="absolute -top-12 left-1/2 -translate-x-1/2 scale-0 rounded-lg bg-zinc-900 border border-white/10 px-2.5 py-1 text-xs font-semibold text-white transition-all group-hover:scale-100 whitespace-nowrap shadow-xl z-50">
-        {genre.name}
-      </span>
-    </motion.button>
   );
 }

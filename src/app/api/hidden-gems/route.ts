@@ -33,8 +33,71 @@ Return a JSON object matching this structure:
 
 Return ONLY valid JSON.`;
 
-    const result = await model.generateContent(prompt);
-    const parsed = JSON.parse(cleanJSON(result.response.text()));
+    let parsed;
+    try {
+      const result = await model.generateContent(prompt);
+      parsed = JSON.parse(cleanJSON(result.response.text()));
+    } catch (aiErr) {
+      console.warn("Gemini Hidden Gems generation failed, using metadata fallback:", aiErr);
+      parsed = {
+        gems: [
+          {
+            title: "Ocean Eyes",
+            artist: "Billie Eilish",
+            album: "dont smile at me",
+            year: "2016",
+            whyThisMatches: "A beautifully soft, bedroom-pop dreamscape that shows absolute vulnerability.",
+            genres: ["Indie Pop", "Dream Pop"],
+            language: "English"
+          },
+          {
+            title: "Fade Into You",
+            artist: "Mazzy Star",
+            album: "So Tonight That I Might See",
+            year: "1993",
+            whyThisMatches: "A legendary slow-core shoegaze gem with warm acoustic slide guitar and hazy vocals.",
+            genres: ["Dream Pop", "Alternative"],
+            language: "English"
+          },
+          {
+            title: "Baarishein",
+            artist: "Anuv Jain",
+            album: "Baarishein (Single)",
+            year: "2018",
+            whyThisMatches: "A minimalist finger-plucked guitar ballad from Indian indie singer-songwriter Anuv Jain.",
+            genres: ["Indie Acoustic", "Indian Indie"],
+            language: "Hindi"
+          },
+          {
+            title: "La Llorona",
+            artist: "Lhasa De Sela",
+            album: "La Llorona",
+            year: "1997",
+            whyThisMatches: "A hauntingly beautiful acoustic folk gem blending traditional Mexican elements with indie songcraft.",
+            genres: ["World", "Latin Folk"],
+            language: "Spanish"
+          },
+          {
+            title: "Kasoor",
+            artist: "Prateek Kuhad",
+            album: "Kasoor (Single)",
+            year: "2020",
+            whyThisMatches: "An intimate and warm acoustic pop track detailing love and memory.",
+            genres: ["Indian Indie", "Singer-Songwriter"],
+            language: "Hindi"
+          },
+          {
+            title: "Blue Monday",
+            artist: "New Order",
+            album: "Power, Corruption & Lies",
+            year: "1983",
+            whyThisMatches: "The bridge between post-punk and synthpop, defining the electronic underground.",
+            genres: ["Synthpop", "New Wave"],
+            language: "English"
+          }
+        ]
+      };
+    }
     
     // Validate each track using Last.fm API
     const validatedGems = await Promise.all(

@@ -1,5 +1,8 @@
 // Last.fm API Client — Global Track & Artist Catalog (100M+ songs)
-const LASTFM_BASE = "https://ws.audioscrobbler.com/2.0/";
+import https from "https";
+import http from "http";
+
+const LASTFM_BASE = "http://ws.audioscrobbler.com/2.0/";
 const API_KEY = process.env.LASTFM_API_KEY!;
 
 async function lastfmFetch(method: string, params: Record<string, string>) {
@@ -16,12 +19,33 @@ async function lastfmFetch(method: string, params: Record<string, string>) {
     for (const [k, v] of Object.entries(params)) {
       url.searchParams.set(k, v);
     }
-    const res = await fetch(url.toString(), { next: { revalidate: 3600 } });
-    if (!res.ok) {
-      console.warn(`[Vercel Serverless LastFM Warn] Last.fm API returned status: ${res.status}`);
-      return null;
+    
+    let data = null;
+    try {
+      const res = await fetch(url.toString(), { next: { revalidate: 3600 } });
+      if (res.ok) {
+        data = await res.json();
+      } else {
+        console.warn(`[Vercel Serverless LastFM Warn] Last.fm API returned status: ${res.status}`);
+      }
+    } catch (fetchErr) {
+      console.warn("[LastFM fetch failed, falling back to network get]:", fetchErr);
+      const getter = url.toString().startsWith("https:") ? https : http;
+      data = await new Promise((resolve, reject) => {
+        getter.get(url.toString(), (res) => {
+          let raw = "";
+          res.on("data", (chunk) => { raw += chunk; });
+          res.on("end", () => {
+            try { resolve(JSON.parse(raw)); } catch (e) { reject(e); }
+          });
+        }).on("error", (err) => reject(err));
+      }).catch((err) => {
+        console.error("[LastFM protocol fallback failed]:", err);
+        return null;
+      });
     }
-    const data = await res.json();
+
+    if (!data) return null;
     if (data.error) {
       console.warn(`[Vercel Serverless LastFM Warn] Last.fm error response: ${data.message}`);
       return null;

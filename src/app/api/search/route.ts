@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { naturalLanguageSearch, emojiSearch, MusicRecommendation, AIResponse } from "@/lib/gemini";
-import { searchTrackCatalog } from "@/lib/lastfm";
+import { searchTrackCatalog, searchArtist, getArtistTopTracks, getChartTopTracks } from "@/lib/lastfm";
 import { searchSpotifyTracks } from "@/lib/spotify";
 import { searchYouTubeTracks } from "@/lib/youtube";
 import { enrichRecommendationsWithArtwork } from "@/lib/artwork";
@@ -81,8 +81,15 @@ function matchesAppleMusic(item: MusicRecommendation, charts: any[]): { matched:
 
 export async function POST(req: NextRequest) {
   try {
-    const { query, type = "text", page = 1, country: reqCountry } = await req.json();
-    if (!query) return NextResponse.json({ error: "Query required" }, { status: 400 });
+    const body = await req.json().catch(() => ({}));
+    let query = body.query || "";
+    const type = body.type || "text";
+    const page = body.page || 1;
+    const reqCountry = body.country;
+
+    if (!query || query.trim() === "") {
+      query = "trending hits";
+    }
 
     const country = (reqCountry || detectCountry(req) || "in").toLowerCase();
 
@@ -169,6 +176,44 @@ export async function POST(req: NextRequest) {
     addUnique(aiRecs);
     addUnique(youtubeRecs);
     addUnique(lastfmRecs);
+
+    if (combined.length === 0) {
+      let fallbackTracks: MusicRecommendation[] = [];
+      const cleanQuery = query.trim();
+      const artistsList = await searchArtist(cleanQuery, 3).catch(() => []);
+      if (artistsList && artistsList.length > 0) {
+        const topArtist = artistsList[0].name;
+        const tracks = await getArtistTopTracks(topArtist, 10).catch(() => []);
+        fallbackTracks = tracks.map((t: any) => ({
+          title: t.name,
+          artist: t.artist?.name || topArtist,
+          album: `${t.name} (Single)`,
+          type: "song",
+          whyThisMatches: `Essential signature track by ${topArtist} matching your search.`,
+          mood: ["trending"],
+          genres: ["global"],
+          language: "Global",
+          popularity: 80,
+        }));
+      }
+
+      if (fallbackTracks.length === 0) {
+        const tracks = await getChartTopTracks(12).catch(() => []);
+        fallbackTracks = tracks.map((t: any, idx: number) => ({
+          title: t.name,
+          artist: t.artist?.name || "Various Artists",
+          album: `${t.name} (Hit)`,
+          type: "song",
+          whyThisMatches: "Trending global chartbuster recommendation.",
+          mood: ["popular"],
+          genres: ["pop"],
+          language: "English",
+          popularity: 85 - idx,
+        }));
+      }
+
+      addUnique(fallbackTracks);
+    }
 
     // Rank matching Last.fm tracks listener/popularity map
     const lastfmListenersMap = new Map<string, number>();

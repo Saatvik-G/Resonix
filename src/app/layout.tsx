@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Outfit } from "next/font/google";
+import { Inter, Outfit, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import AnimatedBackground from "@/components/ui/AnimatedBackground";
 import SplashScreen from "@/components/ui/SplashScreen";
@@ -16,12 +16,18 @@ const outfit = Outfit({
   display: "swap",
 });
 
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-playfair",
+  display: "swap",
+});
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
   userScalable: false,
-  themeColor: "#09090b",
+  themeColor: "#0b0a0d",
 };
 
 export const metadata: Metadata = {
@@ -41,7 +47,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${outfit.variable} max-w-full overflow-x-hidden`}>
+    <html lang="en" className={`${inter.variable} ${outfit.variable} ${playfair.variable} max-w-full overflow-x-hidden`}>
       <body className="bg-warm-mesh min-h-screen text-zinc-100 font-sans antialiased relative max-w-full overflow-x-hidden selection:bg-amber-500/30 selection:text-white">
         <SplashScreen />
         <AnimatedBackground />

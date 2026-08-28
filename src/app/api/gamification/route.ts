@@ -40,10 +40,15 @@ export async function POST(req: NextRequest) {
         .eq("user_id", userId)
         .single();
         
-      let newXp = (current?.xp || 0) + (xpToAdd || 0);
+      let newXp = current?.xp || 0;
       let newBadges = current?.badges || [];
-      if (badgeToEarn && !newBadges.includes(badgeToEarn)) {
-        newBadges = [...newBadges, badgeToEarn];
+      if (badgeToEarn) {
+        if (!newBadges.includes(badgeToEarn)) {
+          newBadges = [...newBadges, badgeToEarn];
+          newXp += (xpToAdd || 0);
+        }
+      } else {
+        newXp += (xpToAdd || 0);
       }
 
       // Upsert gamification record

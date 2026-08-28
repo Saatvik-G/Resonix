@@ -3,9 +3,16 @@ const CLIENT_ID = process.env.SPOTIFY_CLIENT_ID || "";
 const CLIENT_SECRET = process.env.SPOTIFY_CLIENT_SECRET || "";
 
 let cachedToken: { token: string; expiresAt: number } | null = null;
+let circuitBreakerTripped = false;
+let lastFailureTime = 0;
+const BREAKER_COOLDOWN = 1000 * 60 * 5; // 5 minutes
 
 async function getSpotifyAccessToken(): Promise<string | null> {
   if (!CLIENT_ID || !CLIENT_SECRET) return null;
+
+  if (circuitBreakerTripped && Date.now() - lastFailureTime < BREAKER_COOLDOWN) {
+    return null;
+  }
 
   if (cachedToken && Date.now() < cachedToken.expiresAt) {
     return cachedToken.token;
@@ -31,7 +38,9 @@ async function getSpotifyAccessToken(): Promise<string | null> {
     };
     return cachedToken.token;
   } catch (err) {
-    console.warn("Spotify auth error:", err);
+    console.warn("Spotify auth error, tripping circuit breaker:", err);
+    circuitBreakerTripped = true;
+    lastFailureTime = Date.now();
     return null;
   }
 }
@@ -48,6 +57,10 @@ export interface SpotifyTrack {
 }
 
 export async function searchSpotifyTracks(query: string, limit = 20): Promise<SpotifyTrack[]> {
+  if (circuitBreakerTripped && Date.now() - lastFailureTime < BREAKER_COOLDOWN) {
+    return [];
+  }
+
   const token = await getSpotifyAccessToken();
   if (!token) return [];
 
@@ -57,7 +70,7 @@ export async function searchSpotifyTracks(query: string, limit = 20): Promise<Sp
       next: { revalidate: 86400 },
     });
 
-    if (!res.ok) return [];
+    if (!res.ok) throw new Error(`Spotify search failed status: ${res.status}`);
     const data = await res.json();
     const items = data.tracks?.items || [];
 
@@ -72,7 +85,9 @@ export async function searchSpotifyTracks(query: string, limit = 20): Promise<Sp
       popularity: t.popularity || 50,
     }));
   } catch (err) {
-    console.warn("Spotify track search error:", err);
+    console.warn("Spotify track search error, tripping circuit breaker:", err);
+    circuitBreakerTripped = true;
+    lastFailureTime = Date.now();
     return [];
   }
 }

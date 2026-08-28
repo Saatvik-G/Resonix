@@ -22,28 +22,32 @@ export default function MoodSelector({ onSelect, selected }: MoodSelectorProps) 
   const { setMood } = useSceneStore();
 
   return (
-    <div className="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
-      {MOODS.map((mood, i) => (
-        <motion.button
-          key={mood.label}
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: i * 0.05 }}
-          whileHover={{ scale: 1.08 }}
-          whileTap={{ scale: 0.95 }}
-          onClick={() => {
-            onSelect?.(mood.label);
-          }}
-          onMouseEnter={() => setMood(mood.label)}
-          onMouseLeave={() => setMood(selected || "default")}
-          className={`flex-shrink-0 flex flex-col items-center gap-1.5 px-5 py-3 rounded-2xl border bg-gradient-to-br transition-all duration-300 cursor-pointer ${mood.color} ${mood.glow} ${
-            selected === mood.label ? "ring-2 ring-white/30 scale-105" : ""
-          }`}
-        >
-          <span className="text-2xl">{mood.emoji}</span>
-          <span className="text-xs font-medium text-white/80 whitespace-nowrap">{mood.label}</span>
-        </motion.button>
-      ))}
+    <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3 py-3 w-full">
+      {MOODS.map((mood, i) => {
+        const isSelected = selected === mood.label;
+        return (
+          <motion.button
+            key={mood.label}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: i * 0.03, duration: 0.4 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() => {
+              onSelect?.(mood.label);
+            }}
+            onMouseEnter={() => setMood(mood.label)}
+            onMouseLeave={() => setMood(selected || "default")}
+            className={`flex flex-col items-center justify-center p-4 border transition-all duration-200 cursor-pointer rounded-none ${
+              isSelected
+                ? "bg-[#f4f3f6] text-[#0b0a0d] border-[#f4f3f6] shadow-none"
+                : "border-zinc-800 bg-[#111014]/30 text-[#f4f3f6] hover:bg-[#f4f3f6]/5 hover:border-zinc-700"
+            }`}
+          >
+            <span className="text-2xl mb-1.5">{mood.emoji}</span>
+            <span className="text-[10px] font-mono font-bold uppercase tracking-wider whitespace-nowrap">{mood.label}</span>
+          </motion.button>
+        );
+      })}
     </div>
   );
 }

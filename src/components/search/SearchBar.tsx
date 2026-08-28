@@ -73,22 +73,22 @@ export default function SearchBar({ autoFocus = false }: { autoFocus?: boolean }
   const recentHistory = history.slice(0, 5);
 
   return (
-    <div ref={containerRef} className="relative w-full max-w-3xl mx-auto space-y-3 px-1 sm:px-0">
+    <div ref={containerRef} className="relative w-full max-w-3xl space-y-3 px-1 sm:px-0 text-left">
       <motion.div
-        animate={{ scale: isFocused ? 1.01 : 1 }}
+        animate={{ scale: isFocused ? 1.005 : 1 }}
         transition={{ duration: 0.2 }}
-        className={`relative glass rounded-2xl border transition-all duration-300 ${
+        className={`relative border transition-all duration-350 rounded-none ${
           isFocused
-            ? "border-amber-500/60 shadow-[0_0_40px_rgba(245,158,11,0.2)] bg-[#141318]"
-            : "border-white/10 hover:border-white/20 bg-[#121118]/90"
+            ? "border-zinc-500 bg-[#111014] shadow-none"
+            : "border-zinc-800 bg-[#111014]/50"
         }`}
       >
         {/* Search icon indicator */}
         <div className="absolute left-3.5 sm:left-4.5 top-1/2 -translate-y-1/2 flex items-center gap-2">
           {searchType === "emoji" ? (
-            <Sparkles size={18} className="text-amber-400" />
+            <Sparkles size={16} className="text-zinc-300" />
           ) : (
-            <Search size={18} className="text-zinc-400" />
+            <Search size={16} className="text-zinc-500" />
           )}
         </div>
 
@@ -102,7 +102,7 @@ export default function SearchBar({ autoFocus = false }: { autoFocus?: boolean }
           onKeyDown={(e) => e.key === "Enter" && handleSearch()}
           placeholder={`Try "${placeholder}"`}
           autoFocus={autoFocus}
-          className="w-full bg-transparent text-white placeholder-zinc-500 text-sm sm:text-base py-3.5 sm:py-4 pl-10 sm:pl-12 pr-28 sm:pr-32 outline-none font-medium truncate"
+          className="w-full bg-transparent text-white placeholder-zinc-650 text-sm sm:text-base py-3.5 sm:py-4 pl-10 sm:pl-12 pr-28 sm:pr-32 outline-none font-sans font-normal truncate"
         />
 
         {/* Action controls */}
@@ -110,17 +110,17 @@ export default function SearchBar({ autoFocus = false }: { autoFocus?: boolean }
           {query && (
             <button
               onClick={() => setQuery("")}
-              className="p-1 rounded-full hover:bg-white/10 text-zinc-400 hover:text-white transition-colors"
+              className="p-1 rounded-none hover:bg-white/10 text-zinc-500 hover:text-white transition-colors"
             >
               <X size={14} />
             </button>
           )}
-          <kbd className="hidden md:flex items-center gap-0.5 px-2 py-1 rounded-lg bg-white/5 border border-white/10 text-zinc-400 text-xs font-mono">
-            <span className="text-[10px]">⌘</span>K
+          <kbd className="hidden md:flex items-center gap-0.5 px-2 py-1 rounded-none bg-zinc-900 border border-zinc-800 text-zinc-500 text-[10px] font-mono">
+            <span>Ctrl</span>K
           </kbd>
           <button
             onClick={() => handleSearch()}
-            className="gradient-gold px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl text-xs font-bold text-zinc-950 transition-all hover:opacity-95 hover:scale-105 shadow-md shrink-0"
+            className="bg-[#f4f3f6] text-[#0b0a0d] px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-none text-xs font-bold transition-all hover:bg-zinc-200 shadow-none shrink-0 cursor-pointer"
           >
             Discover
           </button>
@@ -129,14 +129,14 @@ export default function SearchBar({ autoFocus = false }: { autoFocus?: boolean }
 
       {/* Multilingual Quick Tags */}
       <div className="flex items-center gap-1.5 overflow-x-auto hide-scrollbar py-1 w-full max-w-full touch-pan-x">
-        <span className="text-[10px] sm:text-[11px] text-zinc-500 font-semibold uppercase tracking-wider flex items-center gap-1 shrink-0 mr-1">
-          <Globe size={11} className="text-amber-400" /> Explore:
+        <span className="text-[10px] text-zinc-500 font-mono font-bold uppercase tracking-widest flex items-center gap-1 shrink-0 mr-1.5">
+          Explore:
         </span>
         {QUICK_LANGUAGE_TAGS.map((tag) => (
           <button
             key={tag.label}
             onClick={() => handleSearch(tag.query)}
-            className="text-[11px] sm:text-xs px-2.5 sm:px-3 py-1 rounded-full glass border border-white/10 text-zinc-300 hover:text-white hover:border-amber-500/40 hover:bg-amber-500/10 transition-all shrink-0 font-medium whitespace-nowrap"
+            className="text-[10px] sm:text-xs px-3 sm:px-3.5 py-1 rounded-none border border-zinc-800 text-zinc-400 hover:text-[#f4f3f6] hover:border-zinc-600 bg-[#111014]/20 transition-all shrink-0 font-mono uppercase tracking-wider font-bold"
           >
             {tag.label}
           </button>

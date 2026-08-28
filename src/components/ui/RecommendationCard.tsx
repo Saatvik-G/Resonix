@@ -94,7 +94,7 @@ export default function RecommendationCard({ rec, index = 0, onFeedback }: Recom
           scale,
           transformStyle: "preserve-3d",
         }}
-        className="glass glass-hover rounded-2xl overflow-hidden glow-card border border-white/10 hover:border-amber-500/30 flex flex-col h-full bg-[#121118]/80 transition-shadow duration-300 hover:shadow-2xl hover:shadow-amber-500/5 select-none cursor-pointer"
+        className="border border-zinc-800 overflow-hidden flex flex-col h-full bg-[#111014]/65 transition-all duration-300 hover:border-zinc-500 select-none cursor-pointer rounded-none"
       >
         
         {/* Main card header */}
@@ -109,7 +109,7 @@ export default function RecommendationCard({ rec, index = 0, onFeedback }: Recom
                   y: shadowY,
                   scale: 1.1,
                 }}
-                className="absolute inset-0 rounded-xl overflow-hidden blur-md opacity-50 group-hover:opacity-80 transition-opacity duration-300 pointer-events-none -z-10"
+                className="absolute inset-0 rounded-none overflow-hidden blur-md opacity-30 group-hover:opacity-50 transition-opacity duration-300 pointer-events-none -z-10"
               >
                 <img
                   src={rec.imageUrl}
@@ -125,7 +125,7 @@ export default function RecommendationCard({ rec, index = 0, onFeedback }: Recom
                 x: shouldReduceMotion ? 0 : imgX,
                 y: shouldReduceMotion ? 0 : imgY,
               }}
-              className="w-full h-full rounded-xl overflow-hidden bg-zinc-900 border border-white/10 group-hover:border-amber-500/40 transition-colors relative"
+              className="w-full h-full rounded-none overflow-hidden bg-zinc-900 border border-zinc-800 group-hover:border-zinc-600 transition-colors relative"
             >
               {rec.imageUrl && !imgError ? (
                 <>
@@ -143,15 +143,15 @@ export default function RecommendationCard({ rec, index = 0, onFeedback }: Recom
                 </>
               ) : (
                 <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-zinc-800 to-zinc-950 p-2 text-center" aria-label={`Cover sleeve for ${rec.title} by ${rec.artist}`}>
-                  <Disc size={28} className="text-amber-400/80 group-hover:animate-vinyl" aria-hidden="true" />
-                  <span className="text-[9px] text-zinc-400 font-medium truncate max-w-full mt-1">
+                  <Disc size={28} className="text-zinc-500 group-hover:animate-vinyl" aria-hidden="true" />
+                  <span className="text-[9px] text-zinc-500 font-medium truncate max-w-full mt-1">
                     {rec.artist}
                   </span>
                 </div>
               )}
               
               {/* Format pill */}
-              <span className="absolute bottom-1 right-1 text-[9px] font-semibold uppercase bg-black/80 text-amber-300 px-1.5 py-0.5 rounded backdrop-blur-md border border-white/10 z-20">
+              <span className="absolute bottom-1 right-1 text-[8px] font-mono font-bold uppercase bg-black/90 text-zinc-300 px-1 py-0.5 border border-zinc-800 z-20 rounded-none">
                 {rec.type}
               </span>
             </motion.div>
@@ -159,34 +159,32 @@ export default function RecommendationCard({ rec, index = 0, onFeedback }: Recom
 
           {/* Metadata */}
           <div className="flex-1 min-w-0">
-            <h3 className="font-outfit font-bold text-white text-base leading-snug truncate" title={rec.title}>
+            <h3 className="font-outfit font-extrabold text-white text-base leading-snug truncate" title={rec.title}>
               {rec.title}
             </h3>
-            <p className="text-xs text-amber-400/90 font-medium truncate mt-0.5">
+            <p className="text-xs text-zinc-400 font-medium truncate mt-0.5">
               {rec.artist}
             </p>
             {rec.album && (
-              <p className="text-xs text-zinc-400 truncate mt-0.5">
+              <p className="text-[11px] text-zinc-500 truncate mt-0.5 font-mono">
                 {rec.album}
               </p>
             )}
 
             {/* Badges for Language, Year & Popularity */}
-            <div className="flex items-center gap-1.5 mt-2 flex-wrap text-[10px]">
+            <div className="flex items-center gap-1.5 mt-2 flex-wrap text-[9px] font-mono">
               {rec.popularity && rec.popularity >= 80 && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold">
-                  🔥 Top Rated
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-none bg-zinc-800 text-zinc-300 border border-zinc-700 font-bold uppercase tracking-wider">
+                  Spotlight
                 </span>
               )}
               {rec.language && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-amber-500/10 text-amber-300 border border-amber-500/20 font-medium">
-                  <Globe size={10} />
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-none bg-zinc-900 text-zinc-400 border border-zinc-800">
                   {rec.language}
                 </span>
               )}
               {rec.year && (
-                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/5 text-zinc-300 border border-white/10">
-                  <Calendar size={10} />
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-none bg-zinc-900 text-zinc-400 border border-zinc-800">
                   {rec.year}
                 </span>
               )}
@@ -197,14 +195,14 @@ export default function RecommendationCard({ rec, index = 0, onFeedback }: Recom
           <div className="flex flex-col gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
             <button
               onClick={(e) => { e.stopPropagation(); setLiked(!liked); onFeedback?.("like"); }}
-              className={`p-1.5 rounded-lg transition-all ${liked ? "bg-emerald-500/30 text-emerald-400" : "hover:bg-white/10 text-zinc-400 hover:text-emerald-400"}`}
+              className={`p-1.5 rounded-none transition-all ${liked ? "bg-[#f4f3f6] text-[#0b0a0d]" : "hover:bg-zinc-800 text-zinc-400 hover:text-white"}`}
               title="Love this"
             >
               <ThumbsUp size={13} />
             </button>
             <button
               onClick={(e) => { e.stopPropagation(); setShowDismiss(!showDismiss); }}
-              className="p-1.5 rounded-lg hover:bg-white/10 text-zinc-400 hover:text-rose-400 transition-all"
+              className="p-1.5 rounded-none hover:bg-zinc-800 text-zinc-400 hover:text-rose-400 transition-all"
               title="Not for me"
             >
               <ThumbsDown size={13} />
@@ -215,19 +213,19 @@ export default function RecommendationCard({ rec, index = 0, onFeedback }: Recom
         {/* Curator Note / Why this matches */}
         {rec.whyThisMatches && (
           <div 
-            className="px-4 py-2.5 mx-3 mb-3 rounded-xl bg-white/[0.03] border border-white/5 flex items-start gap-2 group-hover:bg-amber-500/[0.04] group-hover:border-amber-500/10 transition-all duration-300"
+            className="px-4 py-2.5 mx-3 mb-3 border border-zinc-850 bg-zinc-950/20 flex items-start gap-2 group-hover:border-zinc-800 transition-all duration-300 rounded-none"
             style={{ transform: "translateZ(15px)" }}
           >
-            <Sparkles size={13} className="text-amber-400 flex-shrink-0 mt-0.5" />
-            <p className="text-xs text-zinc-300 leading-relaxed font-normal group-hover:text-white transition-colors">
+            <Sparkles size={12} className="text-zinc-500 flex-shrink-0 mt-0.5" />
+            <p className="text-xs text-zinc-400 leading-relaxed font-normal group-hover:text-zinc-200 transition-colors">
               {rec.whyThisMatches}
             </p>
           </div>
         )}
 
         {/* Listen links footer */}
-        <div className="mt-auto px-4 pb-4 pt-1 border-t border-white/5 flex items-center justify-between" style={{ transform: "translateZ(10px)" }}>
-          <span className="text-[10px] text-zinc-500 uppercase tracking-wider font-semibold">
+        <div className="mt-auto px-4 pb-4 pt-1.5 border-t border-zinc-850 flex items-center justify-between" style={{ transform: "translateZ(10px)" }}>
+          <span className="text-[9px] text-zinc-500 uppercase tracking-widest font-mono font-bold">
             Listen on
           </span>
           <div onClick={(e) => e.stopPropagation()}>
@@ -255,7 +253,7 @@ export default function RecommendationCard({ rec, index = 0, onFeedback }: Recom
                       setDismissed(true);
                       onFeedback?.("dismiss", reason);
                     }}
-                    className="text-[10px] px-2 py-1 rounded-full bg-rose-500/10 text-rose-300 border border-rose-500/20 hover:bg-rose-500/20 transition-colors"
+                    className="text-[9px] font-mono font-bold uppercase tracking-wider px-2 py-1 bg-zinc-900 text-rose-300 border border-zinc-800 hover:bg-rose-950/20 transition-colors rounded-none"
                   >
                     {reason}
                   </button>

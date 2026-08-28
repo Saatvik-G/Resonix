@@ -11,8 +11,25 @@ import { enrichRecommendationsWithArtwork } from "@/lib/artwork";
 
 export async function POST(req: NextRequest) {
   try {
-    const { mode, value } = await req.json();
-    if (!mode || !value) return NextResponse.json({ error: "Mode and value required" }, { status: 400 });
+    const body = await req.json().catch(() => ({}));
+    const mode = body.mode;
+    let value = body.value || "";
+
+    if (!mode) {
+      return NextResponse.json({ error: "Mode required" }, { status: 400 });
+    }
+
+    if (!value || value.trim() === "") {
+      switch (mode) {
+        case "color": value = "Indigo"; break;
+        case "weather": value = "Rainy"; break;
+        case "personality": value = "INFP"; break;
+        case "activity": value = "Coding"; break;
+        case "mood": value = "Dreamy"; break;
+        case "creative": value = "Tokyo Night"; break;
+        default: value = "General Vibe";
+      }
+    }
 
     let result;
     switch (mode) {

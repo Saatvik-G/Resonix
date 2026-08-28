@@ -167,9 +167,13 @@ class MockDatabase {
 
   updateGamification(userId: string, xpToAdd: number, badgeToEarn?: string): UserGamification {
     const record = this.getGamification(userId);
-    record.xp += xpToAdd;
-    if (badgeToEarn && !record.badges.includes(badgeToEarn)) {
-      record.badges.push(badgeToEarn);
+    if (badgeToEarn) {
+      if (!record.badges.includes(badgeToEarn)) {
+        record.badges.push(badgeToEarn);
+        record.xp += xpToAdd;
+      }
+    } else {
+      record.xp += xpToAdd;
     }
     this.gamification[userId] = record;
     return record;

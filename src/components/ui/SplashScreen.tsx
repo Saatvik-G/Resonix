@@ -1,10 +1,11 @@
 "use client";
 import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { Disc, Music } from "lucide-react";
 
 export default function SplashScreen() {
   const [show, setShow] = useState(true);
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const hasSeenSplash = sessionStorage.getItem("resonix_splash_seen");
@@ -31,10 +32,10 @@ export default function SplashScreen() {
         >
           {/* Animated Vinyl Record Graphic */}
           <motion.div
-            initial={{ scale: 0.7, rotate: -20, opacity: 0 }}
-            animate={{ scale: 1, rotate: 360, opacity: 1 }}
+            initial={{ scale: 0.7, rotate: shouldReduceMotion ? 0 : -20, opacity: 0 }}
+            animate={{ scale: 1, rotate: shouldReduceMotion ? 0 : 360, opacity: 1 }}
             transition={{ duration: 1.2, ease: "easeOut" }}
-            className="relative w-28 h-28 rounded-full bg-gradient-to-br from-zinc-900 via-zinc-800 to-zinc-950 border-4 border-amber-500/30 flex items-center justify-center shadow-2xl mb-6"
+            className="relative w-28 h-28 rounded-full bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-950 border-4 border-amber-500/30 flex items-center justify-center shadow-2xl mb-6"
           >
             {/* Vinyl grooves */}
             <div className="absolute inset-2 rounded-full border border-white/10" />
@@ -60,10 +61,10 @@ export default function SplashScreen() {
 
             {/* Equalizer bars */}
             <div className="flex items-end gap-1.5 h-6 mt-1">
-              <div className="w-1 bg-amber-400 rounded-full animate-eq-1" />
-              <div className="w-1 bg-rose-500 rounded-full animate-eq-2" />
-              <div className="w-1 bg-amber-300 rounded-full animate-eq-3" />
-              <div className="w-1 bg-indigo-400 rounded-full animate-eq-1" />
+              <div className={`w-1 bg-amber-400 rounded-full h-4 ${shouldReduceMotion ? "" : "animate-eq-1"}`} />
+              <div className={`w-1 bg-rose-500 rounded-full h-3 ${shouldReduceMotion ? "" : "animate-eq-2"}`} />
+              <div className={`w-1 bg-amber-300 rounded-full h-5 ${shouldReduceMotion ? "" : "animate-eq-3"}`} />
+              <div className={`w-1 bg-indigo-400 rounded-full h-3 ${shouldReduceMotion ? "" : "animate-eq-1"}`} />
             </div>
 
             <p className="text-xs text-zinc-400 font-medium tracking-wide mt-2">

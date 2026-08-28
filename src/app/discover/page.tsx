@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
 import { Loader2, Sparkles } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
@@ -7,6 +8,9 @@ import BottomNav from "@/components/layout/BottomNav";
 import MoodSelector from "@/components/discovery/MoodSelector";
 import RecommendationCard from "@/components/ui/RecommendationCard";
 import type { MusicRecommendation } from "@/lib/gemini";
+import { earnXP } from "@/lib/gamificationClient";
+import GenreDock from "@/components/discovery/GenreDock";
+import { useSceneStore } from "@/store";
 
 const COLORS = [
   { name: "Crimson", hex: "#dc2626" }, { name: "Orange", hex: "#ea580c" },
@@ -58,9 +62,15 @@ export default function DiscoverPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [selected, setSelected] = useState("");
   const [customPrompt, setCustomPrompt] = useState("");
+  const { setMood } = useSceneStore();
+
+  useEffect(() => {
+    return () => setMood("default");
+  }, []);
 
   const fetchRecs = async (mode: string, value: string) => {
     setSelected(value);
+    setMood(value);
     setIsLoading(true);
     setResults([]);
     try {
@@ -72,6 +82,15 @@ export default function DiscoverPage() {
       const data = await res.json();
       setResults(data.recommendations || []);
       setInterpretation(data.interpretation || "");
+      
+      // Earn XP for using discovery modes
+      if (data.recommendations && data.recommendations.length > 0) {
+        let badgeToAward = "Explorer";
+        if (value === "Night" || (mode === "weather" && value === "Night")) {
+          badgeToAward = "Night Owl";
+        }
+        await earnXP(15, badgeToAward);
+      }
     } catch (e) {
       console.error(e);
     } finally {
@@ -89,9 +108,17 @@ export default function DiscoverPage() {
     <div className="min-h-screen">
       <Navbar />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-8 pb-24 md:pb-8">
-        <div className="mb-8">
-          <h1 className="font-outfit text-3xl font-bold text-white">Discover Music</h1>
-          <p className="text-white/40 mt-1">Let AI guide you to the perfect sound based on your world right now</p>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+          <div>
+            <h1 className="font-outfit text-3xl font-bold text-white">Discover Music</h1>
+            <p className="text-white/40 mt-1">Let AI guide you to the perfect sound based on your world right now</p>
+          </div>
+          <Link
+            href="/discover/wheel"
+            className="flex items-center gap-1.5 px-4 py-2.5 bg-gradient-to-r from-amber-500/20 to-orange-500/20 border border-amber-500/30 rounded-xl text-amber-300 hover:opacity-90 transition-all text-sm font-semibold w-fit"
+          >
+            🧭 Try Discovery Wheel
+          </Link>
         </div>
 
         {/* Tabs */}
@@ -99,7 +126,7 @@ export default function DiscoverPage() {
           {TABS.map((t) => (
             <button
               key={t}
-              onClick={() => { setTab(t); setSelected(""); setResults([]); setCustomPrompt(""); }}
+              onClick={() => { setTab(t); setSelected(""); setResults([]); setCustomPrompt(""); setMood("default"); }}
               className={`flex-shrink-0 px-5 py-2 rounded-full text-sm font-medium transition-all ${
                 tab === t
                   ? "gradient-primary text-white"
@@ -226,14 +253,25 @@ export default function DiscoverPage() {
 
         {/* Results */}
         {interpretation && (
-          <motion.div
-            initial={{ opacity: 0, y: -8 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="flex items-start gap-2 mb-6 p-3 glass rounded-xl border border-violet-500/20"
-          >
-            <Sparkles size={14} className="text-violet-400 mt-0.5 flex-shrink-0" />
-            <p className="text-sm text-violet-200/80">{interpretation}</p>
-          </motion.div>
+          <div className="mb-6">
+            <motion.h3
+              initial={{ letterSpacing: "0.25em", opacity: 0 }}
+              animate={{ letterSpacing: "0.1em", opacity: 1 }}
+              transition={{ duration: 1.0, ease: "easeOut" }}
+              className="font-outfit text-xs font-bold text-violet-400 uppercase tracking-widest mb-2 flex items-center gap-1.5"
+            >
+              <Sparkles size={12} />
+              AI Curator Vibe Silhouette
+            </motion.h3>
+            <motion.div
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="flex items-start gap-2 p-3.5 glass rounded-xl border border-violet-500/20 bg-violet-500/5"
+            >
+              <p className="text-sm text-violet-200/80 leading-relaxed">{interpretation}</p>
+            </motion.div>
+          </div>
         )}
 
         {isLoading ? (
@@ -245,11 +283,23 @@ export default function DiscoverPage() {
           <AnimatePresence>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
               {results.map((rec, i) => (
-                <RecommendationCard key={`${rec.title}-${i}`} rec={rec} index={i} />
+                <RecommendationCard
+                  key={`${rec.title}-${i}`}
+                  rec={rec}
+                  index={i}
+                  onFeedback={async (type) => {
+                    if (type === "like") {
+                      await earnXP(10, "Collector");
+                    }
+                  }}
+                />
               ))}
             </div>
           </AnimatePresence>
         )}
+        <div className="mt-12 pt-8 border-t border-white/5">
+          <GenreDock />
+        </div>
       </div>
       <BottomNav />
     </div>

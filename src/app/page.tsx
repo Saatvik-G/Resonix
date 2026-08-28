@@ -1,4 +1,5 @@
 "use client";
+import { useState, useEffect } from "react";
 import { motion } from "motion/react";
 import { Sparkles, TrendingUp, Compass, ArrowRight, Disc, Flame, Globe } from "lucide-react";
 import Link from "next/link";
@@ -7,9 +8,10 @@ import Footer from "@/components/layout/Footer";
 import BottomNav from "@/components/layout/BottomNav";
 import SearchBar from "@/components/search/SearchBar";
 import MoodSelector from "@/components/discovery/MoodSelector";
-import GenreGrid from "@/components/discovery/GenreGrid";
+import GenreDock from "@/components/discovery/GenreDock";
 import FloatingAlbumCards from "@/components/discovery/FloatingAlbumCards";
 import { useRouter } from "next/navigation";
+import Letterbox from "@/components/ui/Letterbox";
 
 const GLOBAL_SPOTLIGHTS = [
   { title: "Pasoori", artist: "Ali Sethi & Shae Gill", language: "Punjabi", mood: "Vibrant", why: "Electrifying Punjabi fusion that swept global charts with lush melodies", gradient: "from-amber-600/20 to-rose-600/20", emoji: "🪕" },
@@ -28,6 +30,15 @@ const GLOBAL_CATEGORIES = [
 
 export default function HomePage() {
   const router = useRouter();
+  const [isHeroActive, setIsHeroActive] = useState(true);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsHeroActive(window.scrollY < 300);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleMoodSelect = (mood: string) => {
     router.push(`/discover?mode=mood&value=${encodeURIComponent(mood)}`);
@@ -35,6 +46,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen relative">
+      <Letterbox active={isHeroActive} />
       <Navbar />
 
       {/* HERO SECTION */}
@@ -207,7 +219,7 @@ export default function HomePage() {
               <p className="text-xs sm:text-sm text-zinc-400 mt-1">From Lo-Fi & City Pop to Afrobeats, Metal & Ghazals</p>
             </div>
           </div>
-          <GenreGrid />
+          <GenreDock />
         </motion.section>
 
         {/* AI CHAT CTA */}

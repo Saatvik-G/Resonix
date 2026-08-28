@@ -106,3 +106,13 @@ export const useDiscoveryStore = create<DiscoveryState>((set) => ({
   setDailyPicks: (dailyPicks) => set({ dailyPicks }),
   setFeaturedPlaylists: (featuredPlaylists) => set({ featuredPlaylists }),
 }));
+
+interface SceneState {
+  currentMood: string;
+  setMood: (mood: string) => void;
+}
+
+export const useSceneStore = create<SceneState>((set) => ({
+  currentMood: "default",
+  setMood: (currentMood) => set({ currentMood }),
+}));

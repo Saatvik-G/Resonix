@@ -4,6 +4,7 @@ import { motion } from "motion/react";
 import { Scale, Loader2, Sparkles, AlertCircle, Users, Disc, Award, HelpCircle } from "lucide-react";
 import Navbar from "@/components/layout/Navbar";
 import BottomNav from "@/components/layout/BottomNav";
+import Letterbox from "@/components/ui/Letterbox";
 
 export default function CompareArtistsPage() {
   const [artist1, setArtist1] = useState("");
@@ -46,6 +47,7 @@ export default function CompareArtistsPage() {
 
   return (
     <div className="min-h-screen">
+      <Letterbox active={!!result || loading} />
       <Navbar />
       <div className="max-w-6xl mx-auto px-4 sm:px-6 py-8 pb-24 md:pb-8">
         
@@ -273,7 +275,14 @@ export default function CompareArtistsPage() {
             <div className="glass border border-white/10 rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-amber-500/5 to-indigo-500/5 relative overflow-hidden">
               <div className="flex items-center gap-2 mb-4 text-amber-400">
                 <Sparkles size={18} />
-                <h3 className="font-outfit font-bold text-lg text-white">Editorial Synthesis</h3>
+                <motion.h3
+                  initial={{ letterSpacing: "0.25em", opacity: 0 }}
+                  animate={{ letterSpacing: "0.12em", opacity: 1 }}
+                  transition={{ duration: 1.0, ease: "easeOut" }}
+                  className="font-outfit font-bold text-lg text-white uppercase tracking-widest"
+                >
+                  Editorial Synthesis
+                </motion.h3>
               </div>
               <p className="text-zinc-200 text-sm leading-relaxed whitespace-pre-line">
                 {result.comparisonSummary}
@@ -282,10 +291,22 @@ export default function CompareArtistsPage() {
 
             {/* Hypothetical Collaboration Concept */}
             <div className="glass border border-white/10 rounded-3xl p-6 sm:p-8 bg-[#121118]/90">
-              <span className="text-[10px] uppercase font-extrabold tracking-widest text-amber-400">Hypothetical Crossover</span>
-              <h3 className="font-outfit text-xl font-bold text-white mt-1 mb-2.5">
+              <motion.span
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6 }}
+                className="text-[10px] uppercase font-extrabold tracking-widest text-amber-400 block mb-1"
+              >
+                Hypothetical Crossover
+              </motion.span>
+              <motion.h3
+                initial={{ letterSpacing: "0.25em", opacity: 0 }}
+                animate={{ letterSpacing: "0.1em", opacity: 1 }}
+                transition={{ duration: 1.2, ease: "easeOut" }}
+                className="font-outfit text-xl font-black text-white tracking-widest uppercase mb-2.5"
+              >
                 "{result.collaborationConcept.title}"
-              </h3>
+              </motion.h3>
               <p className="text-zinc-300 text-sm leading-relaxed">
                 {result.collaborationConcept.description}
               </p>

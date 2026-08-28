@@ -1,5 +1,6 @@
 "use client";
 import { motion } from "motion/react";
+import { useSceneStore } from "@/store";
 
 const MOODS = [
   { label: "Happy", emoji: "😊", color: "from-yellow-500/20 to-orange-500/20 border-yellow-500/30 hover:border-yellow-400/50", glow: "hover:shadow-[0_0_20px_rgba(234,179,8,0.2)]" },
@@ -18,6 +19,8 @@ interface MoodSelectorProps {
 }
 
 export default function MoodSelector({ onSelect, selected }: MoodSelectorProps) {
+  const { setMood } = useSceneStore();
+
   return (
     <div className="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
       {MOODS.map((mood, i) => (
@@ -28,7 +31,11 @@ export default function MoodSelector({ onSelect, selected }: MoodSelectorProps) 
           transition={{ delay: i * 0.05 }}
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.95 }}
-          onClick={() => onSelect?.(mood.label)}
+          onClick={() => {
+            onSelect?.(mood.label);
+          }}
+          onMouseEnter={() => setMood(mood.label)}
+          onMouseLeave={() => setMood(selected || "default")}
           className={`flex-shrink-0 flex flex-col items-center gap-1.5 px-5 py-3 rounded-2xl border bg-gradient-to-br transition-all duration-300 cursor-pointer ${mood.color} ${mood.glow} ${
             selected === mood.label ? "ring-2 ring-white/30 scale-105" : ""
           }`}

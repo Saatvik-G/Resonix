@@ -8,6 +8,7 @@ import BottomNav from "@/components/layout/BottomNav";
 import ListenLinks from "@/components/ui/ListenLinks";
 import { usePlaylistStore } from "@/store";
 import type { MusicRecommendation } from "@/lib/gemini";
+import Letterbox from "@/components/ui/Letterbox";
 
 const SUGGESTED_PROMPTS = [
   "My first breakup at 3am",
@@ -51,6 +52,7 @@ function PlaylistGeneratorContent() {
 
   return (
     <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 pb-24 md:pb-8">
+      <Letterbox active={!!activePlaylist || isGenerating} />
       <div className="mb-8">
         <h1 className="font-outfit text-3xl font-bold text-white mb-1">AI Playlist Generator</h1>
         <p className="text-white/40">Describe a vibe, emotion, or scenario — get a curated playlist with a story</p>
@@ -104,8 +106,22 @@ function PlaylistGeneratorContent() {
               <div className="text-xs text-violet-400 font-medium mb-1 flex items-center gap-1.5">
                 <Sparkles size={11} /> AI-Generated Playlist
               </div>
-              <h2 className="font-outfit text-2xl font-bold text-white">{activePlaylist.name}</h2>
-              <p className="text-white/50 text-sm mt-1 max-w-xl leading-relaxed">{activePlaylist.conceptBlurb}</p>
+              <motion.h2
+                initial={{ letterSpacing: "0.25em", opacity: 0 }}
+                animate={{ letterSpacing: "0.1em", opacity: 1 }}
+                transition={{ duration: 1.2, ease: "easeOut" }}
+                className="font-outfit text-2xl font-black text-white tracking-widest uppercase"
+              >
+                {activePlaylist.name}
+              </motion.h2>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.4, duration: 1.0 }}
+                className="text-white/50 text-sm mt-2 max-w-xl leading-relaxed italic"
+              >
+                {activePlaylist.conceptBlurb}
+              </motion.p>
             </div>
             <div className="flex items-center gap-1 text-xs text-white/30 flex-shrink-0">
               <Music2 size={12} />

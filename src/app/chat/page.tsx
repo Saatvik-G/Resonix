@@ -15,6 +15,46 @@ const STARTERS = [
   "Something between jazz and lo-fi for studying 📚",
 ];
 
+function TypewriterText({ text }: { text: string }) {
+  const paragraphs = text.split("\n");
+
+  const container = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.02 },
+    },
+  };
+
+  const wordVariants: any = {
+    hidden: { opacity: 0, y: 3, filter: "blur(1px)" },
+    visible: {
+      opacity: 1,
+      y: 0,
+      filter: "blur(0px)",
+      transition: { duration: 0.12, ease: "easeOut" }
+    },
+  };
+
+  return (
+    <motion.span variants={container} initial="hidden" animate="visible" className="block">
+      {paragraphs.map((para, pIdx) => (
+        <span key={pIdx} className="block mb-2 last:mb-0">
+          {para.split(" ").map((word, wIdx) => (
+            <motion.span
+              key={wIdx}
+              variants={wordVariants}
+              className="inline-block mr-1"
+            >
+              {word === "" ? "\u00A0" : word}
+            </motion.span>
+          ))}
+        </span>
+      ))}
+    </motion.span>
+  );
+}
+
 export default function ChatPage() {
   const { messages, isLoading, addMessage, setLoading, clearChat } = useChatStore();
   const [input, setInput] = useState("");
@@ -116,29 +156,37 @@ export default function ChatPage() {
             </motion.div>
           ) : (
             <AnimatePresence>
-              {messages.map((msg) => (
-                <motion.div
-                  key={msg.id}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
-                >
-                  {msg.role === "assistant" && (
-                    <div className="w-7 h-7 rounded-lg gradient-primary flex items-center justify-center flex-shrink-0 mr-2 mt-1">
-                      <Sparkles size={12} className="text-white" />
-                    </div>
-                  )}
-                  <div
-                    className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed whitespace-pre-wrap ${
-                      msg.role === "user"
-                        ? "glass border border-violet-500/30 bg-violet-600/10 text-white rounded-tr-sm"
-                        : "glass border border-white/8 text-white/85 rounded-tl-sm"
-                    }`}
+              {messages.map((msg, index) => {
+                const isLastAssistantMessage =
+                  index === messages.length - 1 && msg.role === "assistant";
+                return (
+                  <motion.div
+                    key={msg.id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
                   >
-                    {msg.content}
-                  </div>
-                </motion.div>
-              ))}
+                    {msg.role === "assistant" && (
+                      <div className="w-7 h-7 rounded-lg gradient-primary flex items-center justify-center flex-shrink-0 mr-2 mt-1">
+                        <Sparkles size={12} className="text-white" />
+                      </div>
+                    )}
+                    <div
+                      className={`max-w-[80%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
+                        msg.role === "user"
+                          ? "glass border border-violet-500/30 bg-violet-600/10 text-white rounded-tr-sm whitespace-pre-wrap"
+                          : "glass border border-white/8 text-white/85 rounded-tl-sm"
+                      }`}
+                    >
+                      {msg.role === "assistant" && isLastAssistantMessage ? (
+                        <TypewriterText text={msg.content} />
+                      ) : (
+                        <div className="whitespace-pre-wrap">{msg.content}</div>
+                      )}
+                    </div>
+                  </motion.div>
+                );
+              })}
               {isLoading && (
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
                   <div className="w-7 h-7 rounded-lg gradient-primary flex items-center justify-center mr-2 mt-1">

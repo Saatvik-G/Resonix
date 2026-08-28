@@ -316,6 +316,55 @@ export default function MusicDNAPage() {
                         stroke="#f59e0b"
                         fill="#f59e0b"
                         fillOpacity={0.25}
+                        shape={(props: any) => {
+                          const { points, stroke, fill, fillOpacity } = props;
+                          if (!points || points.length === 0) return <g />;
+                          
+                          // Create path string from points
+                          const pathString = points.reduce((acc: string, p: any, i: number) => {
+                            return `${acc}${i === 0 ? "M" : "L"}${p.x},${p.y}`;
+                          }, "") + "Z";
+
+                          return (
+                            <g>
+                              {/* Fill polygon with scale-in from center */}
+                              <motion.path
+                                d={pathString}
+                                fill={fill}
+                                fillOpacity={fillOpacity}
+                                initial={{ scale: 0, opacity: 0 }}
+                                animate={{ scale: 1, opacity: fillOpacity }}
+                                transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+                                style={{ transformOrigin: `${props.cx}px ${props.cy}px` }}
+                              />
+                              {/* Stroke drawing path reveal */}
+                              <motion.path
+                                d={pathString}
+                                fill="none"
+                                stroke={stroke}
+                                strokeWidth={2.5}
+                                initial={{ pathLength: 0 }}
+                                animate={{ pathLength: 1 }}
+                                transition={{ duration: 1.5, ease: "easeInOut" }}
+                              />
+                              {/* Staggered points reveal */}
+                              {points.map((p: any, i: number) => (
+                                <motion.circle
+                                  key={i}
+                                  cx={p.x}
+                                  cy={p.y}
+                                  r={4.5}
+                                  fill="#fff"
+                                  stroke={stroke}
+                                  strokeWidth={2}
+                                  initial={{ scale: 0, opacity: 0 }}
+                                  animate={{ scale: 1, opacity: 1 }}
+                                  transition={{ delay: 1.2 + i * 0.1, duration: 0.3, type: "spring", stiffness: 100 }}
+                                />
+                              ))}
+                            </g>
+                          );
+                        }}
                       />
                       <Tooltip
                         contentStyle={{
